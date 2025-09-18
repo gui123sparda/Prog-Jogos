@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b28yyeow7hgu1"]
+
+[ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
+[ext_resource type="PackedScene" uid="uid://ec33ehgnj0pd" path="res://Prefabs/player.tscn" id="2_trkr1"]
+[ext_resource type="PhysicsMaterial" uid="uid://dtu5x4rlrxqof" path="res://Terrain].tres" id="3_6v0wk"]
+[ext_resource type="Texture2D" uid="uid://61111pms55g3" path="res://Sprites/Terrain.png" id="4_j2fh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r0x5m"]
+size = Vector2(5505, 233)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" parent="." instance=ExtResource("1_20048")]
+
+[node name="Player" parent="." instance=ExtResource("2_trkr1")]
+position = Vector2(27.3214, -76.8342)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+physics_material_override = ExtResource("3_6v0wk")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(5, 1)
+texture = ExtResource("4_j2fh8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(49.5, 275.5)
+shape = SubResource("RectangleShape2D_r0x5m")
