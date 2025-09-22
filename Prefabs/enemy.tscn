@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://cw54xulhcegc4"]
+
+[ext_resource type="Texture2D" uid="uid://dqoud6m0hnn6l" path="res://Assets/enemy/Idle.png" id="1_leowk"]
+[ext_resource type="Script" uid="uid://6kaucufqm742" path="res://Scripts/enemy.gd" id="1_lgw76"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lgw76"]
+
+[sub_resource type="Animation" id="Animation_leowk"]
+resource_name = "Idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_leowk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_lgw76"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_leowk")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lgw76"]
+_data = {
+&"Idle": SubResource("Animation_leowk"),
+&"RESET": SubResource("Animation_lgw76")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_leowk"]
+size = Vector2(26, 15.136012)
+
+[node name="Enemy" type="CharacterBody2D"]
+scale = Vector2(1.294, 1.294)
+script = ExtResource("1_lgw76")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -11.281)
+texture = ExtResource("1_leowk")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_lgw76")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_lgw76")
+}
+autoplay = "Idle"
+
+[node name="area_dano" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_dano"]
+position = Vector2(0, -11.4319935)
+shape = SubResource("RectangleShape2D_leowk")
+debug_color = Color(0.94266504, 0.24080265, 0.027706947, 0.41960785)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(10.046368, 0)
+collision_mask = 15
+hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false

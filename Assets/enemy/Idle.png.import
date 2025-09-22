@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgotabhfl67km"
-path="res://.godot/imported/Knight-Walk-Sheet.png-1607e756240e3d574c7229638717e43c.ctex"
+uid="uid://dqoud6m0hnn6l"
+path="res://.godot/imported/Idle.png-8770d62b05c69dd8cbf876b5dd0b18ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Knight-Walk-Sheet.png"
-dest_files=["res://.godot/imported/Knight-Walk-Sheet.png-1607e756240e3d574c7229638717e43c.ctex"]
+source_file="res://Assets/enemy/Idle.png"
+dest_files=["res://.godot/imported/Idle.png-8770d62b05c69dd8cbf876b5dd0b18ac.ctex"]
 
 [params]
 
