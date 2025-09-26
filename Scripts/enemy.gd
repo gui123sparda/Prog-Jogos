@@ -9,7 +9,7 @@ enum StateMachine {IDLE, WALK, ATTACK, PARRY, DEATH}
 @onready var object_detecter := $RayCast2D as RayCast2D
 
 var direction := 1.0
-var att_power := 10	
+var att_power := 10
 var health := 3
 var animation := ''
 var death := false
@@ -40,10 +40,3 @@ func _physics_process(delta: float) -> void:
 			pass
 		StateMachine.DEATH:
 			pass
-	
-	
-	
-	
-	
-	
-	

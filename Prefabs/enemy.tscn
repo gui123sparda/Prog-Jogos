@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://cw54xulhcegc4"]
 
-[ext_resource type="Texture2D" uid="uid://dqoud6m0hnn6l" path="res://Assets/enemy/Idle.png" id="1_leowk"]
+[ext_resource type="Texture2D" uid="uid://dqoud6m0hnn6l" path="res://Assets/enemys/Idle.png" id="1_leowk"]
 [ext_resource type="Script" uid="uid://6kaucufqm742" path="res://Scripts/enemy.gd" id="1_lgw76"]
-[ext_resource type="Texture2D" uid="uid://dhbo8wpdo4onu" path="res://Assets/enemy/Attack.png" id="3_t4g6b"]
-[ext_resource type="Texture2D" uid="uid://bsgtujooct33s" path="res://Assets/enemy/Run.png" id="4_30yes"]
+[ext_resource type="Texture2D" uid="uid://dhbo8wpdo4onu" path="res://Assets/enemys/Attack.png" id="3_t4g6b"]
+[ext_resource type="Texture2D" uid="uid://bsgtujooct33s" path="res://Assets/enemys/Run.png" id="4_30yes"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lgw76"]
 
@@ -233,14 +233,14 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_30yes"]
-states/End/position = Vector2(780.10156, 117)
+states/End/position = Vector2(799.10156, 75)
 states/Idle/node = SubResource("AnimationNodeAnimation_lgw76")
 states/Idle/position = Vector2(454.34384, 91)
 states/Start/position = Vector2(322.3672, 91)
 states/attack/node = SubResource("AnimationNodeAnimation_t4g6b")
-states/attack/position = Vector2(482.20715, 186.78094)
+states/attack/position = Vector2(594.20715, 192.78094)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t4g6b"), "attack", "Idle", SubResource("AnimationNodeStateMachineTransition_30yes")]
-graph_offset = Vector2(201.42978, -2.6214063)
+graph_offset = Vector2(230.42978, 16.378593)
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(1.294, 1.294)
