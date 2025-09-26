@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqtxttrgt43vp"
-path="res://.godot/imported/Take Hit.png-f733c7895f8a5f8da9dbcf6f289c589c.ctex"
+uid="uid://bre6t8mf6go0s"
+path="res://.godot/imported/Death.png-bf254dc72508704ca289faec726915ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/enemys/Take Hit.png"
-dest_files=["res://.godot/imported/Take Hit.png-f733c7895f8a5f8da9dbcf6f289c589c.ctex"]
+source_file="res://Assets/Sprites/enemys/Death.png"
+dest_files=["res://.godot/imported/Death.png-bf254dc72508704ca289faec726915ce.ctex"]
 
 [params]
 

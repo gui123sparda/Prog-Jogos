@@ -55,13 +55,13 @@ public partial class PlayerMovement : CharacterBody2D
 	{
 		velocity = Velocity;
 		inputDirection = Input.GetAxis("Left", "Right");
-		GD.Print(inputDirection);
-		GD.Print(velocity);
+		//GD.Print(inputDirection);
+		//GD.Print(velocity);
 		
 
 		velocity.Y += gravity * (float)delta;
 
-		if (Input.IsActionPressed("Jump"))
+		if (Input.IsActionJustPressed("Jump"))
 		{
 			GD.Print("Pulou");
 			velocity.Y = jumpSpeed;

@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
 [ext_resource type="PackedScene" uid="uid://ec33ehgnj0pd" path="res://Prefabs/player.tscn" id="2_trkr1"]
 [ext_resource type="PhysicsMaterial" uid="uid://dtu5x4rlrxqof" path="res://Terrain].tres" id="3_6v0wk"]
-[ext_resource type="Texture2D" uid="uid://61111pms55g3" path="res://Sprites/Terrain.png" id="4_j2fh8"]
+[ext_resource type="Texture2D" uid="uid://61111pms55g3" path="res://Assets/Sprites/Terrain.png" id="4_j2fh8"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0x5m"]

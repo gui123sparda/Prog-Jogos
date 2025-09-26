@@ -1,11 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://cw54xulhcegc4"]
+[gd_scene load_steps=22 format=3 uid="uid://cw54xulhcegc4"]
 
-[ext_resource type="Texture2D" uid="uid://dqoud6m0hnn6l" path="res://Assets/enemys/Idle.png" id="1_leowk"]
 [ext_resource type="Script" uid="uid://6kaucufqm742" path="res://Scripts/enemy.gd" id="1_lgw76"]
-[ext_resource type="Texture2D" uid="uid://dhbo8wpdo4onu" path="res://Assets/enemys/Attack.png" id="3_t4g6b"]
-[ext_resource type="Texture2D" uid="uid://bsgtujooct33s" path="res://Assets/enemys/Run.png" id="4_30yes"]
+[ext_resource type="Texture2D" uid="uid://c4xmwxct4nrvh" path="res://Assets/Sprites/enemys/robot/3-Robot-Idle.png" id="2_t4g6b"]
+[ext_resource type="Texture2D" uid="uid://bal2gljvrybgh" path="res://Assets/Sprites/enemys/robot/3-Robot-Atack.png" id="3_30yes"]
+[ext_resource type="Texture2D" uid="uid://cowj8t7k0cxup" path="res://Assets/Sprites/enemys/robot/3-Robot-Walk.png" id="4_30yes"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lgw76"]
+radius = 10.819165
+height = 26.275116
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_leowk"]
 size = Vector2(33.865532, 19.15997)
@@ -17,38 +19,50 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.33333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("1_leowk")]
+"values": [0, 1, 2, 3]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:hframes")
+tracks/1/path = NodePath("sprite:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [ExtResource("2_t4g6b")]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sprite:frame")
+tracks/2/path = NodePath("sprite:hframes")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.33333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3]
+"values": [4]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.283, 7.879)]
 }
 
 [sub_resource type="Animation" id="Animation_lgw76"]
@@ -56,50 +70,62 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_leowk")]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:hframes")
+tracks/1/path = NodePath("area_dano/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sprite:frame")
+tracks/2/path = NodePath("sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0]
+"values": [ExtResource("2_t4g6b")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("area_dano/CollisionShape2D:disabled")
+tracks/3/path = NodePath("sprite:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [4]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("sprite:offset")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.283, 7.879)]
 }
 
 [sub_resource type="Animation" id="Animation_30yes"]
@@ -110,104 +136,104 @@ step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("3_t4g6b")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [8]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668, 0.33333334, 0.43333334, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("area_dano/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("area_dano/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.53333336),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(-0.03333333, 0),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("3_30yes"), ExtResource("3_30yes")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.755, 7.879)]
+}
 
 [sub_resource type="Animation" id="Animation_t4g6b"]
 resource_name = "walk"
-length = 0.65
+length = 0.5
 loop_mode = 1
 step = 0.0333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:texture")
+tracks/0/path = NodePath("sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668, 0.33333334, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("4_30yes")]
+"values": [0, 1, 2, 3, 4, 5]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:hframes")
+tracks/1/path = NodePath("area_dano/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [8]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("sprite:frame")
+tracks/2/path = NodePath("sprite:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.06666667, 0.16666667, 0.26666668, 0.33333334, 0.43333334, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 6]
+"values": [ExtResource("4_30yes")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("area_dano/CollisionShape2D:disabled")
+tracks/3/path = NodePath("sprite:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.53333336),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true, false]
+"values": [6]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lgw76"]
@@ -224,6 +250,9 @@ animation = &"Idle"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t4g6b"]
 animation = &"attack"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_30yes"]
+animation = &"walk"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t4g6b"]
 advance_mode = 2
 
@@ -232,14 +261,24 @@ break_loop_at_end = true
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n7q57"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_80imi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_osttl"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g7nnu"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_30yes"]
 states/End/position = Vector2(799.10156, 75)
 states/Idle/node = SubResource("AnimationNodeAnimation_lgw76")
 states/Idle/position = Vector2(454.34384, 91)
 states/Start/position = Vector2(322.3672, 91)
 states/attack/node = SubResource("AnimationNodeAnimation_t4g6b")
-states/attack/position = Vector2(594.20715, 192.78094)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t4g6b"), "attack", "Idle", SubResource("AnimationNodeStateMachineTransition_30yes")]
+states/attack/position = Vector2(619.0978, 91)
+states/walk/node = SubResource("AnimationNodeAnimation_30yes")
+states/walk/position = Vector2(524.27356, 213.59344)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t4g6b"), "attack", "Idle", SubResource("AnimationNodeStateMachineTransition_30yes"), "Idle", "walk", SubResource("AnimationNodeStateMachineTransition_n7q57"), "walk", "Idle", SubResource("AnimationNodeStateMachineTransition_80imi"), "Idle", "attack", SubResource("AnimationNodeStateMachineTransition_osttl"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_g7nnu")]
 graph_offset = Vector2(230.42978, 16.378593)
 
 [node name="Enemy" type="CharacterBody2D"]
@@ -250,14 +289,15 @@ SPEED = 300.0
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, -11.281)
-texture = ExtResource("1_leowk")
+texture = ExtResource("2_t4g6b")
+offset = Vector2(1.283, 7.879)
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_lgw76")
 
 [node name="area_dano" type="Area2D" parent="."]
-position = Vector2(23.956722, 12.36476)
+position = Vector2(-27.047913, 10.046368)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="area_dano"]
 position = Vector2(2.3183918, -9.579985)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsgtujooct33s"
-path="res://.godot/imported/Run.png-1cc19121a95f04587c6dec42aced34d8.ctex"
+uid="uid://61111pms55g3"
+path="res://.godot/imported/Terrain.png-dba710e24f6ad884d116514f991ca4e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/enemys/Run.png"
-dest_files=["res://.godot/imported/Run.png-1cc19121a95f04587c6dec42aced34d8.ctex"]
+source_file="res://Assets/Sprites/Terrain.png"
+dest_files=["res://.godot/imported/Terrain.png-dba710e24f6ad884d116514f991ca4e4.ctex"]
 
 [params]
 
