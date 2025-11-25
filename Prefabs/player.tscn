@@ -197,7 +197,6 @@ editor_draw_drag_margin = true
 libraries = {
 &"": SubResource("AnimationLibrary_r0x5m")
 }
-autoplay = "idle"
 
 [node name="AnimationController" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_gwjdr")
