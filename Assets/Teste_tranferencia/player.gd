@@ -32,7 +32,6 @@ func _flip(direcao) -> void:
 	collision_shape_2d.scale.x = direcao * -1
 
 func _physics_process(delta):
-	print(is_taking_damage)
 	if is_death:
 		machine_state.travel("death")
 		
@@ -48,7 +47,6 @@ func _physics_process(delta):
 		
 	if not is_attacking and not is_taking_damage:
 		if Input.is_action_pressed("ui_right"):	
-			print("s")
 			machine_state.travel("walk")
 			direcao.x += velocidade
 
