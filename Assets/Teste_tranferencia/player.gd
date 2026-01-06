@@ -1,6 +1,6 @@
 # Exemplo de script em GDScript
 extends CharacterBody2D
-
+### TODO Terminar de fazer o sistema de invencibilidade
 @export var velocidade := 200.0
 @export var jump_velocidade := -400.0 
 @export var run_acl := 1.5
@@ -16,6 +16,8 @@ var gravity = 750.0
 var is_moving:= false
 var is_attacking := false
 var is_taking_damage := false
+var is_invisible := false
+var animate_finished = true
 var is_death := false
 
 
@@ -44,9 +46,8 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
-		
-	if not is_attacking and not is_taking_damage:
-		if Input.is_action_pressed("ui_right"):	
+	if not is_attacking and not is_taking_damage  and animate_finished:
+		if Input.is_action_pressed("ui_right"):
 			machine_state.travel("walk")
 			direcao.x += velocidade
 
@@ -93,41 +94,45 @@ func _physics_process(delta):
 	
 	# Move o personagem e trata colisões
 	move_and_slide()
-	velocity.x = Vector2.ZERO.x
+	#velocity.x = Vector2.ZERO.x
 
 
 func aplly_damege(damage_amount: int = 0) -> void:
-	if is_death or is_taking_damage:
+	if is_death or is_taking_damage or is_invisible:
 		return
 	
 	health -= damage_amount
 	is_taking_damage = true
 	is_attacking = false
-	
+	velocity = Vector2(500 * scale.x ,-150)
+	move_and_slide()
+	animate_finished = false
 	machine_state.travel("hit")
 	#print("tomou dano, vida restante: ", health)
 	
 	if health <= 0:
 		is_death = true
-		
+
 
 func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "death":
 		queue_free()
 	if anim_name == "attack":
 		is_attacking = false
-	print(anim_name)
+		#animate_finished = true
 	
 	
 	if anim_name == "hit":
-		print("virou falso")
 		is_taking_damage = false
+		animate_finished = true
+
 		if health <= 0:
 			is_death = true
 			
 
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
+	print(body.get_groups())
 	if body.is_in_group("Enemies"):
-		#if body.name == "Goblin_enemy":
-		var _goblin = body.aplly_damege(damage_power)
+		if body.death != true:
+			var _goblin = body.aplly_damege(damage_power)

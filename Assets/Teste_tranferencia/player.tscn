@@ -725,7 +725,7 @@ libraries = {
 &"": SubResource("AnimationLibrary_r66lb")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="." groups=["player"]]
 tree_root = SubResource("AnimationNodeStateMachine_1txc5")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/is_death = false

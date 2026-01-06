@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 enum StateMachine {IDLE, WALK, ATTACK, DEATH}
 
-@export var SPEED := -90.0
+@export var SPEED := 90.0
 @export var DIST_FOLLOW := 300.0
 @export var DIST_ATTACK := 80.0
 @export var cooldown_attack_init := 2.0
@@ -33,8 +33,7 @@ func _run_physics(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
-	if not is_attacking and not is_taking_damage:
+	if not is_attacking and not is_taking_damage and can_attack:
 		if object_detecter.is_colliding() :
 			direction = direction * -1
 			scale.x *= -1
@@ -48,7 +47,7 @@ func _run_physics(delta: float) -> void:
 				state = StateMachine.DEATH
 			elif velocity.x == 0:
 				state = StateMachine.IDLE
-			elif velocity.x != 0:
+			elif velocity.x != 0 :
 				state = StateMachine.WALK
 			move_and_slide()
 			if attack_raycast.is_colliding() and health > 0:
@@ -56,17 +55,24 @@ func _run_physics(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if health <0 :
+	if health < 0 :
 		is_attacking = false
 		death = true
 		state = StateMachine.DEATH
+		$CollisionShape2D.disabled = true
+		$area_dano/CollisionShape2D.disabled = true
+		$area_dano.monitorable = false
+		$area_dano.monitoring = false
+
+		
 	if not is_taking_damage:
 		match state:
 			StateMachine.IDLE:
 				velocity.x = 0
 				machine_state.travel("idle")
-				state = StateMachine.WALK
 				is_attacking = false
+				_run_physics(delta)
+
 				
 				
 			StateMachine.WALK:
@@ -110,8 +116,6 @@ func aplly_damege(damage_amount: int = 0) -> void:
 		
 func start_attack_cooldown() -> void:
 	await get_tree().create_timer(attack_cooldown_time).timeout
-	
-	#print("tempo")
 	can_attack = true
 	is_attacking = false
 
@@ -128,5 +132,7 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	print(body.get_groups())
 	if body.is_in_group("player"):
+		print("entoru")
 		var _player = body.aplly_damege(damage_power)
