@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b28yyeow7hgu1"]
+[gd_scene load_steps=7 format=3 uid="uid://b28yyeow7hgu1"]
 
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
 [ext_resource type="PackedScene" uid="uid://bk7borty1x5ya" path="res://Prefabs/tilemap.tscn" id="5_6v0wk"]
+[ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="5_j2fh8"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
 [ext_resource type="PackedScene" uid="uid://c4qpj41uacdu5" path="res://Assets/Teste_tranferencia/player.tscn" id="6_6v0wk"]
 
@@ -60,3 +61,7 @@ limit_right = 4411
 limit_smoothed = true
 position_smoothing_enabled = true
 editor_draw_limits = true
+
+[node name="fly_enemy" parent="." instance=ExtResource("5_j2fh8")]
+position = Vector2(840.00006, 319)
+scale = Vector2(2.808, 2.808)
