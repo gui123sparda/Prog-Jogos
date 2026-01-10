@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://b28yyeow7hgu1"]
+
+[ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
+[ext_resource type="Script" uid="uid://pkfxsbeai2lg" path="res://Prefabs/caminho.gd" id="5_2f2xo"]
+[ext_resource type="PackedScene" uid="uid://bk7borty1x5ya" path="res://Prefabs/tilemap.tscn" id="5_6v0wk"]
+[ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="5_j2fh8"]
+[ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
+[ext_resource type="PackedScene" uid="uid://c4qpj41uacdu5" path="res://Assets/Teste_tranferencia/player.tscn" id="6_6v0wk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
+
+[sub_resource type="Curve2D" id="Curve2D_trkr1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -101.80313, -29.558403, -1.6049706, 44.840668, 1.6049706, -44.840668, 0, 0, 0, 0, 0, 0, 92.59256, -17.094017)
+}
+point_count = 3
+
+[node name="Game" type="Node2D"]
+metadata/_edit_vertical_guides_ = [4417.0]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="fase1" parent="." instance=ExtResource("5_6v0wk")]
+
+[node name="Background" parent="." instance=ExtResource("1_20048")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" groups=["Enemies"] instance=ExtResource("5_trkr1")]
+position = Vector2(691, 418.00003)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="Enemy2" parent="Enemies" groups=["Enemies"] instance=ExtResource("5_trkr1")]
+position = Vector2(1710, 552)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+
+[node name="obstaculos" type="Node2D" parent="."]
+visible = false
+position = Vector2(81, 360)
+
+[node name="Area2D" type="Area2D" parent="obstaculos"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="obstaculos/Area2D"]
+scale = Vector2(3.141069, 3.1232116)
+shape = SubResource("RectangleShape2D_trkr1")
+
+[node name="Area2D2" type="Area2D" parent="obstaculos"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="obstaculos/Area2D2"]
+position = Vector2(1055.0001, -3)
+scale = Vector2(3.141069, 3.1232116)
+shape = SubResource("RectangleShape2D_trkr1")
+
+[node name="player" parent="." instance=ExtResource("6_6v0wk")]
+position = Vector2(586, 386)
+scale = Vector2(2.0413172, 2.0413172)
+jump_velocidade = -440.0
+health = 3
+
+[node name="Camera2D" type="Camera2D" parent="player"]
+position = Vector2(-265.053, -160.095)
+scale = Vector2(0.4898798, 0.4898798)
+anchor_mode = 0
+limit_left = 0
+limit_right = 4411
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
+
+[node name="Path2D2" type="Path2D" parent="."]
+position = Vector2(846.6032, 319)
+scale = Vector2(2.7366858, 2.808)
+curve = SubResource("Curve2D_trkr1")
+script = ExtResource("5_2f2xo")
+speed = 40.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
+position = Vector2(-79.254776, -14.14446)
+rotation = 0.63869625
+progress = 27.335464
+rotates = false
+
+[node name="fly_enemy" parent="Path2D2/PathFollow2D" groups=["Enemies"] instance=ExtResource("5_j2fh8")]
+rotation = -0.59608513
+skew = -0.02301693
+
+[connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]
