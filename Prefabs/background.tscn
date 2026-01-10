@@ -10,7 +10,7 @@
 visible = false
 z_index = -1
 scroll_scale = Vector2(0.9, 1)
-scroll_offset = Vector2(-1, 0)
+scroll_offset = Vector2(-1, 191)
 repeat_size = Vector2(640, 0)
 repeat_times = 7
 
@@ -24,6 +24,7 @@ texture = ExtResource("1_n0flw")
 visible = false
 z_index = -2
 scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(0, 191)
 repeat_size = Vector2(640, 0)
 autoscroll = Vector2(-100, 0)
 repeat_times = 7
@@ -38,6 +39,7 @@ texture = ExtResource("2_y80ol")
 visible = false
 z_index = -2
 scroll_scale = Vector2(0.1, 1)
+scroll_offset = Vector2(0, 191)
 repeat_size = Vector2(960, 0)
 autoscroll = Vector2(-20, 0)
 repeat_times = 8

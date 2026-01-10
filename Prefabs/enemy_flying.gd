@@ -1,3 +1,7 @@
+#extends "res://Scripts/enemy.gd"
+
+
+
 extends CharacterBody2D
 
 enum StateMachine {IDLE, WALK, ATTACK, DEATH}
@@ -8,11 +12,11 @@ enum StateMachine {IDLE, WALK, ATTACK, DEATH}
 @export var cooldown_attack_init := 2.0
 @export var damage_power := 1
 
-@onready var object_detecter := $RayCast2D as RayCast2D
+#@onready var object_detecter := $RayCast2D as RayCast2D
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var attack_raycast: RayCast2D = $attack_raycast
+#@onready var attack_raycast: RayCast2D = $attack_raycast
 
-var direction := 1.0
+#var direction := 1.0
 var att_power := 10
 var health := 3
 var animation := ''
@@ -24,23 +28,24 @@ var is_taking_damage := false
 var can_attack := true
 var attack_cooldown_time := 1.0
 
+# Separar fisica do update
+
+signal damege
 
 func _ready() -> void:
 	machine_state = animation_tree.get("parameters/playback")
+	#add_user_signal("damege")
 
-
-func _run_physics(delta: float) -> void:
-	
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+func _run_physics(delta:float) -> void:
 	if not is_attacking and not is_taking_damage and can_attack:
-		if object_detecter.is_colliding() :
-			direction = direction * -1
-			scale.x *= -1
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+		#if object_detecter.is_colliding() :
+			#direction = direction * -1
+			#scale.x *= -1
+		#if direction:
+			#velocity.x = direction * SPEED
+		#else:
+			#velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 		if state != StateMachine.DEATH:
 			if health <= 0 :
@@ -50,8 +55,9 @@ func _run_physics(delta: float) -> void:
 			elif velocity.x != 0 :
 				state = StateMachine.WALK
 			move_and_slide()
-			if attack_raycast.is_colliding() and health > 0:
-				state = StateMachine.ATTACK
+			#if attack_raycast.is_colliding() and health > 0:
+			#if health > 0:
+				#state = StateMachine.ATTACK
 
 
 func _physics_process(delta: float) -> void:
@@ -77,7 +83,7 @@ func _physics_process(delta: float) -> void:
 				
 			StateMachine.WALK:
 				if not death:
-					velocity.x = direction * SPEED
+					#velocity.x = direction * SPEED
 					machine_state.travel("walk")
 					_run_physics(delta)
 					
@@ -101,6 +107,8 @@ func _physics_process(delta: float) -> void:
 					await animation_tree.animation_finished
 					queue_free()
 
+func await_damage(time:float):
+	emit_signal("damege")
 
 func aplly_damege(damage_amount: int = 0) -> void:
 	if state == StateMachine.DEATH  and is_taking_damage:
@@ -110,8 +118,10 @@ func aplly_damege(damage_amount: int = 0) -> void:
 	is_taking_damage = true
 	is_attacking = false
 	
+	
 	machine_state.travel("takeDamege")
 	print(self.name + " tomou dano, vida restante: ", health)
+	await_damage(2)
 
 		
 func start_attack_cooldown() -> void:
@@ -134,5 +144,4 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print(body.get_groups())
 	if body.is_in_group("player"):
-		print("entoru")
 		var _player = body.aplly_damege(damage_power)
