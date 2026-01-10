@@ -1,22 +1,26 @@
-[gd_scene load_steps=8 format=3 uid="uid://b28yyeow7hgu1"]
+[gd_scene load_steps=12 format=3 uid="uid://b28yyeow7hgu1"]
 
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
-[ext_resource type="PackedScene" uid="uid://ec33ehgnj0pd" path="res://Prefabs/player.tscn" id="2_trkr1"]
 [ext_resource type="PhysicsMaterial" uid="uid://dtu5x4rlrxqof" path="res://Terrain].tres" id="3_6v0wk"]
 [ext_resource type="Texture2D" uid="uid://61111pms55g3" path="res://Assets/Sprites/Terrain.png" id="4_j2fh8"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="6_2f2xo"]
+[ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="6_6v0wk"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_mur8l"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_hku6m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r0x5m"]
 size = Vector2(5505, 233)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
 
+[sub_resource type="Resource" id="Resource_i4mel"]
+script = ExtResource("7_mur8l")
+
 [node name="Node2D" type="Node2D"]
+texture_filter = 3
 
 [node name="Background" parent="." instance=ExtResource("1_20048")]
-
-[node name="Player" parent="." instance=ExtResource("2_trkr1")]
-position = Vector2(27.3214, -76.8342)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 physics_material_override = ExtResource("3_6v0wk")
@@ -47,3 +51,23 @@ shape = SubResource("RectangleShape2D_trkr1")
 position = Vector2(1055.0001, -3)
 scale = Vector2(3.141069, 3.1232116)
 shape = SubResource("RectangleShape2D_trkr1")
+
+[node name="Player Final" parent="." instance=ExtResource("6_6v0wk")]
+position = Vector2(-157, -131)
+floor_snap_length = 18.8
+jumpSpeed = -600.0
+
+[node name="PhantomCamera2D" type="Node2D" parent="Player Final"]
+script = ExtResource("6_2f2xo")
+tween_resource = SubResource("Resource_i4mel")
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+physics_interpolation_mode = 1
+position = Vector2(-157, -131)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_hku6m")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"

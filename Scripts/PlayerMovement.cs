@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+using System.Reflection.Metadata.Ecma335;
+
+
 
 public partial class PlayerMovement : CharacterBody2D
 {
@@ -8,68 +11,129 @@ public partial class PlayerMovement : CharacterBody2D
 	[Export]
 	public float moveSpeed = 400f;
 	[Export]
-	public float jumpSpeed = -400f;
+	public float jumpSpeed = -1000f;
 	public float gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
-	public Sprite2D sprite;
-
+	[Export]
+	public Node2D playerTransform;
+	
 	public Vector2 velocity;
+	
+	public bool is_Running=false;
+	public bool is_Jumping=false;
 	public float inputDirection;
+	
 
+	[Export]
 	public AnimationTree playerAnimator;
+	private AnimationNodeStateMachinePlayback _animStateMachine;
 	public override void _Ready()
 	{
-		sprite = GetNode<Sprite2D>("Sprite2D");
-		playerAnimator = GetNode<AnimationTree>("AnimationController");
+		playerTransform = GetNode<Node2D>("Sprite2DPlayer");
+		playerAnimator = GetNode<AnimationTree>("AnimationTree");
+		_animStateMachine = (AnimationNodeStateMachinePlayback)playerAnimator.Get("parameters/playback");
 	}
 
 	public void GetInput()
 	{
-		if (inputDirection > 0)
+		
+		if (inputDirection > 0&&is_Running==false&&IsOnFloor())
 		{
-			playerAnimator.Set("parameters/conditions/isRunning", true);
-			playerAnimator.Set("parameters/conditions/idle", false);           
-			sprite.FlipH = true;
-			velocity.X = inputDirection * moveSpeed;
-		}
-		else if (inputDirection < 0)
-		{
-			playerAnimator.Set("parameters/conditions/isRunning", true);
+			  //_animStateMachine.Travel("Walk");
+				  
+			playerTransform.Scale = new Vector2(-1,1);
+			
+			playerAnimator.Set("parameters/conditions/is_run",false);
+			playerAnimator.Set("parameters/conditions/is_walk", true);
 			playerAnimator.Set("parameters/conditions/idle", false);
-			sprite.FlipH = false;
 			velocity.X = inputDirection * moveSpeed;
-		}
-		if (inputDirection != 0)
+		}else if (inputDirection > 0 && is_Running == true&&IsOnFloor())
 		{
+			playerTransform.Scale = new Vector2(-1,1);
+			
+			playerAnimator.Set("parameters/conditions/is_run", true);
+			playerAnimator.Set("parameters/conditions/is_walk", false);
+			playerAnimator.Set("parameters/conditions/idle", false);
+			velocity.X = inputDirection * moveSpeed*2;
+		}
+		else if (inputDirection < 0&&is_Running==false&&IsOnFloor())
+		{
+			//_animStateMachine.Travel("Walk");
+			
+			playerTransform.Scale = new Vector2(1,1);
+			
+			playerAnimator.Set("parameters/conditions/is_run",false);
+			playerAnimator.Set("parameters/conditions/is_walk", true);
+			playerAnimator.Set("parameters/conditions/idle", false);
 			velocity.X = inputDirection * moveSpeed;
-		}
-		else
+		}else if(inputDirection<0 && is_Running == true&&IsOnFloor())
 		{
+			playerTransform.Scale = new Vector2(1,1);
+			
+			playerAnimator.Set("parameters/conditions/is_run", true);
+			playerAnimator.Set("parameters/conditions/is_walk", false);
+			playerAnimator.Set("parameters/conditions/idle", false);
+			velocity.X = inputDirection * moveSpeed*2;
+		}
+		else if(IsOnFloor())
+		{
+			
+			playerAnimator.Set("parameters/conditions/is_run",false);
 			playerAnimator.Set("parameters/conditions/idle", true);
-			playerAnimator.Set("parameters/conditions/isRunning", false);
+			playerAnimator.Set("parameters/conditions/is_walk", false);
 			velocity.X = inputDirection;
 		}
 		
 	}
 
+	
 	public override void _PhysicsProcess(double delta)
 	{
 		velocity = Velocity;
 		inputDirection = Input.GetAxis("Left", "Right");
-		//GD.Print(inputDirection);
-		//GD.Print(velocity);
+		GD.Print(inputDirection);
+		GD.Print(velocity);
+		GetInput();
+		if (IsOnFloor())
+		{
+			is_Jumping=false;
+			velocity.Y =0;
+		}
+		else
+		{
+			
+			is_Jumping=true;
+			velocity.Y += gravity * (float)delta;
+		}
 		
 
-		velocity.Y += gravity * (float)delta;
-
-		if (Input.IsActionJustPressed("Jump"))
+		if (Input.IsActionPressed("Jump")&&IsOnFloor())
 		{
+			_animStateMachine.Travel("Jump");
+			is_Jumping=true;
 			GD.Print("Pulou");
 			velocity.Y = jumpSpeed;
 		}
+		if (Input.IsActionPressed("Run"))
+		{
+			is_Running=true;
+		}
+		else
+		{
+			is_Running=false;
+		}
+		if (Input.IsActionPressed("Attack"))
+		{
+			_animStateMachine.Travel("Attack");
+		}
 
-		GetInput();
-		Velocity = velocity;
+		
+		
+		
+		
 		MoveAndSlide();
+		Velocity = velocity;
 		
 	}
+
+	
 }
