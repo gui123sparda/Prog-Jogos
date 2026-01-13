@@ -1,8 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://dja0t6rqc7xpg"]
+[gd_scene load_steps=39 format=3 uid="uid://dja0t6rqc7xpg"]
 
 [ext_resource type="Script" uid="uid://bntxeduhq3klv" path="res://Scripts/PlayerMovement.cs" id="1_688qk"]
 [ext_resource type="Texture2D" uid="uid://xo5tbob1gjei" path="res://personagemUnity.png" id="1_vkq1v"]
 [ext_resource type="Texture2D" uid="uid://ewc52smxpvv2" path="res://spada.png" id="2_688qk"]
+[ext_resource type="Script" uid="uid://net7vpq2p6li" path="res://Assets/Teste_tranferencia/player.gd" id="2_rh3fu"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rh3fu"]
 animation = &"Attack"
@@ -2509,6 +2510,7 @@ playerAnimator = NodePath("AnimationTree")
 
 [node name="Sprite2DPlayer" type="Node2D" parent="."]
 position = Vector2(0, 2)
+script = ExtResource("2_rh3fu")
 
 [node name="Sprite" type="Node2D" parent="Sprite2DPlayer"]
 texture_filter = 6
