@@ -15,13 +15,13 @@ public partial class PlayerMovement : CharacterBody2D
 	public float gravity = (float)ProjectSettings.GetSetting("physics/2d/default_gravity");
 	[Export]
 	public Node2D playerTransform;
-	
+
 	public Vector2 velocity;
-	
-	public bool is_Running=false;
-	public bool is_Jumping=false;
+
+	public bool is_Running = false;
+	public bool is_Jumping = false;
 	public float inputDirection;
-	
+
 
 	[Export]
 	public AnimationTree playerAnimator;
@@ -35,57 +35,59 @@ public partial class PlayerMovement : CharacterBody2D
 
 	public void GetInput()
 	{
-		
-		if (inputDirection > 0&&is_Running==false&&IsOnFloor())
-		{
-			  //_animStateMachine.Travel("Walk");
-				  
-			playerTransform.Scale = new Vector2(-1,1);
-			
-			playerAnimator.Set("parameters/conditions/is_run",false);
-			playerAnimator.Set("parameters/conditions/is_walk", true);
-			playerAnimator.Set("parameters/conditions/idle", false);
-			velocity.X = inputDirection * moveSpeed;
-		}else if (inputDirection > 0 && is_Running == true&&IsOnFloor())
-		{
-			playerTransform.Scale = new Vector2(-1,1);
-			
-			playerAnimator.Set("parameters/conditions/is_run", true);
-			playerAnimator.Set("parameters/conditions/is_walk", false);
-			playerAnimator.Set("parameters/conditions/idle", false);
-			velocity.X = inputDirection * moveSpeed*2;
-		}
-		else if (inputDirection < 0&&is_Running==false&&IsOnFloor())
+
+		if (inputDirection > 0 && is_Running == false )
 		{
 			//_animStateMachine.Travel("Walk");
-			
-			playerTransform.Scale = new Vector2(1,1);
-			
-			playerAnimator.Set("parameters/conditions/is_run",false);
+
+			playerTransform.Scale = new Vector2(-1, 1);
+
+			playerAnimator.Set("parameters/conditions/is_run", false);
 			playerAnimator.Set("parameters/conditions/is_walk", true);
 			playerAnimator.Set("parameters/conditions/idle", false);
 			velocity.X = inputDirection * moveSpeed;
-		}else if(inputDirection<0 && is_Running == true&&IsOnFloor())
+		}
+		else if (inputDirection > 0 && is_Running == true )
 		{
-			playerTransform.Scale = new Vector2(1,1);
-			
+			playerTransform.Scale = new Vector2(-1, 1);
+
 			playerAnimator.Set("parameters/conditions/is_run", true);
 			playerAnimator.Set("parameters/conditions/is_walk", false);
 			playerAnimator.Set("parameters/conditions/idle", false);
-			velocity.X = inputDirection * moveSpeed*2;
+			velocity.X = inputDirection * moveSpeed * 2;
 		}
-		else if(IsOnFloor())
+		else if (inputDirection < 0 && is_Running == false )
 		{
-			
-			playerAnimator.Set("parameters/conditions/is_run",false);
+			//_animStateMachine.Travel("Walk");
+
+			playerTransform.Scale = new Vector2(1, 1);
+
+			playerAnimator.Set("parameters/conditions/is_run", false);
+			playerAnimator.Set("parameters/conditions/is_walk", true);
+			playerAnimator.Set("parameters/conditions/idle", false);
+			velocity.X = inputDirection * moveSpeed;
+		}
+		else if (inputDirection < 0 && is_Running == true )
+		{
+			playerTransform.Scale = new Vector2(1, 1);
+
+			playerAnimator.Set("parameters/conditions/is_run", true);
+			playerAnimator.Set("parameters/conditions/is_walk", false);
+			playerAnimator.Set("parameters/conditions/idle", false);
+			velocity.X = inputDirection * moveSpeed * 2;
+		}
+		else if (IsOnFloor())
+		{
+
+			playerAnimator.Set("parameters/conditions/is_run", false);
 			playerAnimator.Set("parameters/conditions/idle", true);
 			playerAnimator.Set("parameters/conditions/is_walk", false);
 			velocity.X = inputDirection;
 		}
-		
+
 	}
 
-	
+
 	public override void _PhysicsProcess(double delta)
 	{
 		velocity = Velocity;
@@ -95,45 +97,47 @@ public partial class PlayerMovement : CharacterBody2D
 		GetInput();
 		if (IsOnFloor())
 		{
-			is_Jumping=false;
-			velocity.Y =0;
+			is_Jumping = false;
+			velocity.Y = 0;
 		}
 		else
 		{
+
 			
-			is_Jumping=true;
 			velocity.Y += gravity * (float)delta;
 		}
-		
 
-		if (Input.IsActionPressed("Jump")&&IsOnFloor())
-		{
-			_animStateMachine.Travel("Jump");
-			is_Jumping=true;
-			GD.Print("Pulou");
-			velocity.Y = jumpSpeed;
-		}
+
+
+
 		if (Input.IsActionPressed("Run"))
 		{
-			is_Running=true;
+			is_Running = true;
 		}
 		else
 		{
-			is_Running=false;
+			is_Running = false;
 		}
 		if (Input.IsActionPressed("Attack"))
 		{
 			_animStateMachine.Travel("Attack");
 		}
+		if (Input.IsActionPressed("Jump") && IsOnFloor())
+		{
+			_animStateMachine.Travel("Jump");
+			is_Jumping = true;
+			GD.Print("Pulou");
+			velocity.Y = jumpSpeed;
+		}
 
-		
-		
-		
-		
+
+
+
+
 		MoveAndSlide();
 		Velocity = velocity;
-		
+
 	}
 
-	
+
 }
