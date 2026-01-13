@@ -2526,7 +2526,6 @@ uv = PackedVector2Array(324.1853, 1056.2354, 582.4154, 957.50037, 825.45544, 125
 bones = ["Bone2D", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone2D/Bone2D3", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1), "Bone2D/Bone2D3/Bone2D4", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Bone2D2", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
 
 [node name="Head" type="Polygon2D" parent="Sprite2DPlayer/Sprite/Body"]
-z_index = -1
 z_as_relative = false
 position = Vector2(0, -537.5)
 offset = Vector2(-435.5, -757)
@@ -2645,7 +2644,6 @@ polygon = PackedVector2Array(3040, 1816, 3703.9998, 1720, 3831.9998, 2016, 3952,
 uv = PackedVector2Array(3040, 1816, 3703.9998, 1720, 3831.9998, 2016, 3952, 3640, 3232, 3656, 3120, 3560)
 
 [node name="Weapon" type="Polygon2D" parent="Sprite2DPlayer/Sprite/Body"]
-z_index = -2
 z_as_relative = false
 position = Vector2(237.50012, -537.5)
 rotation = 2.926369
