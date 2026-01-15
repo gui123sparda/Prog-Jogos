@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=4 uid="uid://bk7borty1x5ya"]
+[gd_scene load_steps=7 format=4 uid="uid://bk7borty1x5ya"]
 
+[ext_resource type="Script" uid="uid://bk5fv5ayfihfh" path="res://Prefabs/fase1.gd" id="1_0in8a"]
 [ext_resource type="Texture2D" uid="uid://bsu7cxa504sh5" path="res://FreeCuteTileset/Tileset.png" id="1_8disd"]
 [ext_resource type="Texture2D" uid="uid://dtt3tcr1x0x37" path="res://Character.png" id="2_8n1g7"]
 
@@ -73,7 +74,11 @@ terrain_set_0/mode = 0
 navigation_layer_0/layers = 1
 sources/1 = SubResource("TileSetAtlasSource_8disd")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulk4l"]
+size = Vector2(75.82416, 341.67194)
+
 [node name="Fase1" type="Node2D"]
+script = ExtResource("1_0in8a")
 
 [node name="background" type="TileMapLayer" parent="."]
 visible = false
@@ -90,3 +95,12 @@ tile_set = SubResource("TileSet_8n1g7")
 position = Vector2(4336, 855.75)
 scale = Vector2(0.91, 0.45072463)
 texture = ExtResource("2_8n1g7")
+
+[node name="Area2D" type="Area2D" parent="Character"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Area2D"]
+position = Vector2(-3.8461914, -12.757568)
+scale = Vector2(0.99999976, 0.9999997)
+shape = SubResource("RectangleShape2D_ulk4l")
+
+[connection signal="body_entered" from="Character/Area2D" to="." method="_on_area_2d_body_entered"]
