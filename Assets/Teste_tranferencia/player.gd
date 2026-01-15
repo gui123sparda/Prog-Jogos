@@ -97,7 +97,7 @@ func _physics_process(delta):
 	#velocity.x = Vector2.ZERO.x
 
 
-func aplly_damege(damage_amount: int = 0) -> void:
+func ApplyDamage(damage_amount: int = 0) -> void:
 	if is_death or is_taking_damage or is_invisible:
 		return
 	
@@ -135,4 +135,4 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 	print(body.get_groups())
 	if body.is_in_group("Enemies"):
 		if body.death != true:
-			var _goblin = body.aplly_damege(damage_power)
+			var _goblin = body.ApplyDamage(damage_power)

@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 func await_damage(time:float):
 	emit_signal("damege")
 
-func aplly_damege(damage_amount: int = 0) -> void:
+func ApplyDamage(damage_amount: int = 0) -> void:
 	if state == StateMachine.DEATH  and is_taking_damage:
 		return
 	
@@ -144,4 +144,4 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	print(body.get_groups())
 	if body.is_in_group("player"):
-		var _player = body.aplly_damege(damage_power)
+		var _player = body.ApplyDamage(damage_power)

@@ -102,7 +102,7 @@ func _physics_process(delta: float) -> void:
 					queue_free()
 
 
-func aplly_damege(damage_amount: int = 0) -> void:
+func ApplyDamage(damage_amount: int = 0) -> void:
 	if state == StateMachine.DEATH  and is_taking_damage:
 		return
 	
@@ -135,4 +135,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	print(body.get_groups())
 	if body.is_in_group("player"):
 		print("entoru")
-		var _player = body.aplly_damege(damage_power)
+		var _player = body.ApplyDamage(damage_power)
