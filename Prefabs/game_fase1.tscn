@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b28yyeow7hgu1"]
+[gd_scene load_steps=10 format=3 uid="uid://b28yyeow7hgu1"]
 
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/background.tscn" id="1_20048"]
 [ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_h7xhi"]
@@ -9,9 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7xhi"]
-size = Vector2(211.6565, 305.21478)
 
 [sub_resource type="Curve2D" id="Curve2D_trkr1"]
 _data = {
@@ -58,15 +55,13 @@ position = Vector2(1055.0001, -3)
 scale = Vector2(3.141069, 3.1232116)
 shape = SubResource("RectangleShape2D_trkr1")
 
-[node name="Player Final" parent="." node_paths=PackedStringArray("attack_area", "collision_shape_2d") groups=["player"] instance=ExtResource("4_h7xhi")]
+[node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_h7xhi")]
 position = Vector2(586, 386)
 scale = Vector2(0.326, 0.326)
 collision_layer = 13
 collision_mask = 3
 moveSpeed = 200.0
 jumpSpeed = -700.0
-attack_area = NodePath("attack_area")
-collision_shape_2d = NodePath("attack_area/CollisionShape2D2")
 
 [node name="Camera2D" type="Camera2D" parent="Player Final"]
 position = Vector2(-1659.6848, -1002.4684)
@@ -78,15 +73,6 @@ limit_smoothed = true
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_fso3h")
-
-[node name="attack_area" type="Area2D" parent="Player Final"]
-position = Vector2(3.067505, 0)
-collision_layer = 13
-collision_mask = 3
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player Final/attack_area"]
-position = Vector2(4.6011963, -9.96936)
-shape = SubResource("RectangleShape2D_h7xhi")
 
 [node name="Path2D2" type="Path2D" parent="."]
 position = Vector2(846.6032, 319)

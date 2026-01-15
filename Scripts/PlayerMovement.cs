@@ -18,20 +18,20 @@ public partial class PlayerMovement : CharacterBody2D
 
 
 	[Export] public int damage_power = 1;
-    [Export] public int health = 3;
+	[Export] public int health = 3;
 
 	[Export] public Area2D attack_area;
-    [Export] public CollisionShape2D collision_shape_2d;
+	[Export] public CollisionShape2D collision_shape_2d;
 	public Vector2 velocity;
 
 	public bool is_Running = false;
 	public bool is_Jumping = false;
 
-    private bool is_attacking = false;
-    private bool is_taking_damage = false;
-    private bool is_invisible = false; // TODO: sistema de invencibilidade
-    private bool animate_finished = true;
-    private bool is_death = false;
+	private bool is_attacking = false;
+	private bool is_taking_damage = false;
+	private bool is_invisible = false; // TODO: sistema de invencibilidade
+	private bool animate_finished = true;
+	private bool is_death = false;
 	public float inputDirection;
 
 
@@ -46,10 +46,10 @@ public partial class PlayerMovement : CharacterBody2D
 		_animStateMachine = (AnimationNodeStateMachinePlayback)playerAnimator.Get("parameters/playback");
 
 		attack_area.Monitoring = false;
-        attack_area.Monitorable = true;
-        attack_area.BodyEntered += OnAttackAreaBodyEntered;
+		attack_area.Monitorable = true;
+		attack_area.BodyEntered += OnAttackAreaBodyEntered;
 
-        GD.Print("Player pronto");
+		GD.Print("Player pronto");
 	}
 
 	public void GetInput()
@@ -163,52 +163,52 @@ public partial class PlayerMovement : CharacterBody2D
 	{
 
 		 GD.Print("ATAQUE!");
-        is_attacking = true;
+		is_attacking = true;
 		attack_area.Monitoring = true;
 
-        // Desativa após 0.25s
-        GetTree().CreateTimer(1f).Timeout += () =>
-        {
-            attack_area.Monitoring = false;
-            is_attacking = false;
-        };
+		// Desativa após 0.25s
+		GetTree().CreateTimer(1f).Timeout += () =>
+		{
+			attack_area.Monitoring = false;
+			is_attacking = false;
+		};
 	}
 
 	public void ApplyDamage(int damage)
-    {
-        if (is_death || is_taking_damage)
-            return;
+	{
+		if (is_death || is_taking_damage)
+			return;
 
-        health -= damage;
-        is_taking_damage = true;
+		health -= damage;
+		is_taking_damage = true;
 
-        GD.Print("Player tomou dano. Vida: ", health);
+		GD.Print("Player tomou dano. Vida: ", health);
 
-        
+		
 
-        // Pequeno knockback
-        Velocity = new Vector2(-300 * Scale.X, -150);
+		// Pequeno knockback
+		Velocity = new Vector2(-300 * Scale.X, -150);
 
-        GetTree().CreateTimer(0.3f).Timeout += () =>
-        {
-            is_taking_damage = false;
-            if (health <= 0)
-                is_death = true;
-        };
-    }
+		GetTree().CreateTimer(0.3f).Timeout += () =>
+		{
+			is_taking_damage = false;
+			if (health <= 0)
+				is_death = true;
+		};
+	}
 
-    // ===============================
-    // HITBOX DO ATAQUE
-    // ===============================
-    private void OnAttackAreaBodyEntered(Node2D body)
-    {
+	// ===============================
+	// HITBOX DO ATAQUE
+	// ===============================
+	private void OnAttackAreaBodyEntered(Node2D body)
+	{
 		GD.Print("COLIDIU COM: ", body.Name);
 
-        if (body.IsInGroup("Enemies"))
-        {
+		if (body.IsInGroup("Enemies"))
+		{
 			GD.Print("DANO APLICADO");
-            body.Call("ApplyDamage", damage_power);
-        }
-    }
+			body.Call("ApplyDamage", damage_power);
+		}
+	}
 
 }

@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://mqnnjhtou5ul"]
+
+[ext_resource type="Script" uid="uid://shq0ftkuaecy" path="res://Scripts/menu_initial.gd" id="1_1ksmb"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yd83u"]
+font_size = 46
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1ksmb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22772455, 0.44753486, 0.44496456, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "The Great Game"
+label_settings = SubResource("LabelSettings_yd83u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="init_btn" type="MenuButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+text = "Iniciar"
+flat = false
+
+[node name="creditos_btn" type="MenuButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+disabled = true
+toggle_mode = false
+text = "Creditos"
+flat = false
+
+[node name="quit_btn" type="MenuButton" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = false
+text = "Sair"
+flat = false
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/init_btn" to="." method="_on_init_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/creditos_btn" to="." method="_on_creditos_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/quit_btn" to="." method="_on_quit_btn_pressed"]

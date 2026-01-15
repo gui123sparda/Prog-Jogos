@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bntxeduhq3klv" path="res://Scripts/PlayerMovement.cs" id="1_688qk"]
 [ext_resource type="Texture2D" uid="uid://xo5tbob1gjei" path="res://personagemUnity.png" id="1_vkq1v"]
 [ext_resource type="Texture2D" uid="uid://ewc52smxpvv2" path="res://spada.png" id="2_688qk"]
-[ext_resource type="Script" uid="uid://net7vpq2p6li" path="res://Assets/Teste_tranferencia/player.gd" id="2_rh3fu"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rh3fu"]
 animation = &"Attack"
@@ -124,7 +123,7 @@ states/Start/position = Vector2(152, 112)
 states/Walk/node = SubResource("AnimationNodeAnimation_o3o2p")
 states/Walk/position = Vector2(190, 287)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_r3guv"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_6bkrg"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_nqq0j"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_wduar"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_a1vlh"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_6q63h"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_abxwx"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_vh05k"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_mf3d8"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_r52qx"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_688qk"), "Walk", "Jump", SubResource("AnimationNodeStateMachineTransition_rh3fu"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_ykemk"), "Jump", "Walk", SubResource("AnimationNodeStateMachineTransition_6dcuw"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_bftng"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_o3o2p"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_45gqy"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_yisik"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_wgas0"), "Jump", "Attack", SubResource("AnimationNodeStateMachineTransition_t5v5x")]
-graph_offset = Vector2(-151, -33)
+graph_offset = Vector2(201, 139)
 
 [sub_resource type="Animation" id="Animation_xx18q"]
 resource_name = "Attack"
@@ -2502,15 +2501,19 @@ _data = {
 radius = 29.0
 height = 320.0
 
-[node name="Player Final" type="CharacterBody2D" node_paths=PackedStringArray("playerTransform", "playerAnimator")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rh3fu"]
+size = Vector2(211.6565, 305.21478)
+
+[node name="Player Final" type="CharacterBody2D" node_paths=PackedStringArray("playerTransform", "attack_area", "collision_shape_2d", "playerAnimator")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_688qk")
 playerTransform = NodePath("Sprite2DPlayer/Sprite/Body")
+attack_area = NodePath("attack_area")
+collision_shape_2d = NodePath("attack_area/CollisionShape2D2")
 playerAnimator = NodePath("AnimationTree")
 
 [node name="Sprite2DPlayer" type="Node2D" parent="."]
 position = Vector2(0, 2)
-script = ExtResource("2_rh3fu")
 
 [node name="Sprite" type="Node2D" parent="Sprite2DPlayer"]
 texture_filter = 6
@@ -2670,3 +2673,12 @@ speed_scale = 2.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(5, 4)
 shape = SubResource("CapsuleShape2D_688qk")
+
+[node name="attack_area" type="Area2D" parent="."]
+position = Vector2(3.067505, 0)
+collision_layer = 13
+collision_mask = 3
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attack_area"]
+position = Vector2(-125.067505, -4)
+shape = SubResource("RectangleShape2D_rh3fu")
