@@ -1,8 +1,9 @@
-[gd_scene load_steps=39 format=3 uid="uid://dja0t6rqc7xpg"]
+[gd_scene load_steps=40 format=3 uid="uid://dja0t6rqc7xpg"]
 
 [ext_resource type="Script" uid="uid://bntxeduhq3klv" path="res://Scripts/PlayerMovement.cs" id="1_688qk"]
 [ext_resource type="Texture2D" uid="uid://xo5tbob1gjei" path="res://personagemUnity.png" id="1_vkq1v"]
 [ext_resource type="Texture2D" uid="uid://ewc52smxpvv2" path="res://spada.png" id="2_688qk"]
+[ext_resource type="AudioStream" uid="uid://lpqh4faald0p" path="res://Assets/sounds/Attack.mp3" id="4_rh3fu"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rh3fu"]
 animation = &"Attack"
@@ -2504,10 +2505,11 @@ height = 320.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rh3fu"]
 size = Vector2(211.6565, 305.21478)
 
-[node name="Player Final" type="CharacterBody2D" node_paths=PackedStringArray("playerTransform", "attack_area", "collision_shape_2d", "playerAnimator")]
+[node name="Player Final" type="CharacterBody2D" node_paths=PackedStringArray("playerTransform", "attack_sound", "attack_area", "collision_shape_2d", "playerAnimator")]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_688qk")
 playerTransform = NodePath("Sprite2DPlayer/Sprite/Body")
+attack_sound = NodePath("attack_sound")
 attack_area = NodePath("attack_area")
 collision_shape_2d = NodePath("attack_area/CollisionShape2D2")
 playerAnimator = NodePath("AnimationTree")
@@ -2682,3 +2684,8 @@ collision_mask = 3
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attack_area"]
 position = Vector2(-125.067505, -4)
 shape = SubResource("RectangleShape2D_rh3fu")
+
+[node name="attack_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rh3fu")
+volume_db = -11.35
+pitch_scale = 1.2

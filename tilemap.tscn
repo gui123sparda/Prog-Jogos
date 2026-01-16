@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dmgjc8ro042h2"]
 
-[ext_resource type="PackedScene" uid="uid://bk7borty1x5ya" path="res://Prefabs/tilemap.tscn" id="1_1i3gi"]
+[ext_resource type="PackedScene" uid="uid://bk7borty1x5ya" path="res://Prefabs/levels/tilemap.tscn" id="1_1i3gi"]
 
 [node name="Node2D" type="Node2D"]
 

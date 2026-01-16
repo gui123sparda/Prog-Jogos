@@ -16,6 +16,8 @@ public partial class PlayerMovement : CharacterBody2D
 	[Export]
 	public Node2D playerTransform;
 
+	[Export]
+	public AudioStreamPlayer attack_sound;
 
 	[Export] public int damage_power = 1;
 	[Export] public int health = 3;
@@ -161,7 +163,7 @@ public partial class PlayerMovement : CharacterBody2D
 
 	public void Attack()
 	{
-
+		attack_sound.Play();
 		 GD.Print("ATAQUE!");
 		is_attacking = true;
 		attack_area.Monitoring = true;
