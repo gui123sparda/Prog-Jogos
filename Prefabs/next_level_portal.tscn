@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7sn54tnh7gle"]
+
+[ext_resource type="Shader" uid="uid://c8k6eirt75f6p" path="res://Assets/shaders/portal.gdshader" id="1_b426e"]
+[ext_resource type="Texture2D" uid="uid://dr0274m0nh2hl" path="res://Assets/Sprites/objects/portal5_spritesheet.png" id="2_liuh2"]
+[ext_resource type="Script" uid="uid://bereyb5fyf1lx" path="res://Prefabs/next_level_portal.gd" id="3_liuh2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_csdo3"]
+shader = ExtResource("1_b426e")
+shader_parameter/speed = 3.0
+shader_parameter/height = 4.0
+shader_parameter/freq = 4.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ulk4l"]
+size = Vector2(16.000114, 23.000004)
+
+[node name="next_level_portal" type="Sprite2D"]
+texture_filter = 3
+texture_repeat = 1
+material = SubResource("ShaderMaterial_csdo3")
+scale = Vector2(2.1497555, 4.543486)
+texture = ExtResource("2_liuh2")
+region_enabled = true
+region_rect = Rect2(1, 0, 29, 32)
+script = ExtResource("3_liuh2")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.75)
+scale = Vector2(0.99999976, 0.9999997)
+shape = SubResource("RectangleShape2D_ulk4l")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
