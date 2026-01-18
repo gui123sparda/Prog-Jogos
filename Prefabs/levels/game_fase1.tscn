@@ -15,9 +15,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_trkr1"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -101.80313, -29.558403, -1.6049706, 44.840668, 1.6049706, -44.840668, 0, 0, 0, 0, 0, 0, 92.59256, -17.094017)
+"points": PackedVector2Array(1.2381, -45.730255, -1.2381, 45.730255, -101.43773, -29.558403, -1.6049706, 44.840668, 1.6049706, -44.840668, 0, 0, 59.610195, 1.3020115, -59.610195, -1.3020115, -46.99231, -59.82906, 0, 0, 0, 0, -102.16853, -29.558403, 0, 0, 0, 0, -101.80313, -29.558403)
 }
-point_count = 3
+point_count = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qr7x8"]
 size = Vector2(53, 48)
@@ -32,7 +32,7 @@ metadata/_edit_vertical_guides_ = [4417.0]
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy" parent="Enemies" groups=["Enemies"] instance=ExtResource("5_trkr1")]
-position = Vector2(691, 418.00003)
+position = Vector2(1161, 438.00003)
 rotation = 3.1415927
 scale = Vector2(2.807778, -2.807778)
 SPEED = 250.0
@@ -43,21 +43,22 @@ rotation = 3.1415927
 scale = Vector2(2.807778, -2.807778)
 
 [node name="Path2D2" type="Path2D" parent="Enemies"]
-position = Vector2(846.6032, 319)
+position = Vector2(838, 227)
 scale = Vector2(2.7366858, 2.808)
 curve = SubResource("Curve2D_trkr1")
 script = ExtResource("5_2f2xo")
 speed = 40.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Path2D2"]
-position = Vector2(-79.254776, -14.14446)
+position = Vector2(-6.454632, 15.132184)
 rotation = 0.63869625
-progress = 27.335464
+progress = 121.70896
 rotates = false
 
-[node name="fly_enemy" parent="Enemies/Path2D2/PathFollow2D" groups=["Enemies"] instance=ExtResource("5_j2fh8")]
+[node name="fly_enemy" parent="Enemies/Path2D2/PathFollow2D" node_paths=PackedStringArray("player") groups=["Enemies"] instance=ExtResource("5_j2fh8")]
 rotation = -0.59608513
 skew = -0.02301693
+player = NodePath("../../../../Player Final")
 
 [node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_h7xhi")]
 position = Vector2(115, 329)
