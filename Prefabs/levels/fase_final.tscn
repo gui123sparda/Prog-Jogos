@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4tehcihbn1oe"]
+[gd_scene load_steps=11 format=3 uid="uid://c4tehcihbn1oe"]
 
 [ext_resource type="PackedScene" uid="uid://d4g6fk3vqf7bu" path="res://Prefabs/levels/fase_final_tilemap.tscn" id="1_domtr"]
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/levels/background.tscn" id="2_8ua63"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_d8nwa"]
 [ext_resource type="Script" uid="uid://pkfxsbeai2lg" path="res://Prefabs/caminho.gd" id="6_080t6"]
 [ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="7_4aw1d"]
+[ext_resource type="PackedScene" uid="uid://dkfoffaoavxd8" path="res://Prefabs/enemy_Boss.tscn" id="8_68l7t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
 
@@ -32,11 +33,6 @@ position = Vector2(691, 418.00003)
 rotation = 3.1415927
 scale = Vector2(2.807778, -2.807778)
 SPEED = 250.0
-
-[node name="Enemy2" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_2de7j")]
-position = Vector2(1710, 552)
-rotation = 3.1415927
-scale = Vector2(2.807778, -2.807778)
 
 [node name="obstaculos" type="Node2D" parent="."]
 visible = false
@@ -67,6 +63,7 @@ jumpSpeed = -700.0
 position = Vector2(-1659.6848, -1002.4684)
 scale = Vector2(3.0674846, 3.0674846)
 anchor_mode = 0
+limit_bottom = 965
 limit_smoothed = true
 
 [node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
@@ -90,5 +87,9 @@ rotates = false
 [node name="fly_enemy" parent="Path2D2/PathFollow2D" groups=["Enemies"] instance=ExtResource("7_4aw1d")]
 rotation = -0.59608513
 skew = -0.02301693
+
+[node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") instance=ExtResource("8_68l7t")]
+position = Vector2(3745, 779)
+player_ref = NodePath("../Player Final")
 
 [connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]

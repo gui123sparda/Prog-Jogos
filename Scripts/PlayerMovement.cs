@@ -171,6 +171,7 @@ public partial class PlayerMovement : CharacterBody2D
 		// Desativa após 0.25s
 		GetTree().CreateTimer(1f).Timeout += () =>
 		{
+			GD.Print("atacou");
 			attack_area.Monitoring = false;
 			is_attacking = false;
 		};

@@ -66,6 +66,14 @@ func check_attack():
 	if get_distance_to_player() < DIST_ATTACK and can_attack:
 		state = StateMachine.ATTACK
 
+
+func shoot() -> void:
+	var bullet := BULLET_SCENE.instantiate()
+	bullet.global_position = self.global_position
+	bullet.direction = get_direction_to_player()
+	get_tree().current_scene.add_child(bullet)
+
+
 func _process(delta: float) -> void:
 	check_attack()
 	_follow_player()
@@ -91,15 +99,7 @@ func _process(delta: float) -> void:
 				if not is_attacking and not death and can_attack:
 					is_attacking = true
 					can_attack = false
-					print("atacou")
-					var bullet := BULLET_SCENE.instantiate()
-					bullet.global_position = self.global_position
-					bullet.direction = get_direction_to_player()
-					get_tree().current_scene.add_child(bullet)
-					#machine_state.travel("attack")
-					#await animation_tree.animation_finished
-					#await get_tree().create_timer(cooldown_attack_init).timeout
-					#state = StateMachine.IDLE
+					shoot()
 					await_damage(0.5)
 					start_attack_cooldown()
 					state = StateMachine.IDLE
