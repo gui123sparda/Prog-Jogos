@@ -79,6 +79,26 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_fso3h")
 
+[node name="HUD" type="Control" parent="Player Final/Camera2D"]
+top_level = true
+layout_mode = 3
+anchor_left = 0.0390625
+anchor_top = 0.09104938
+anchor_right = 1.0364584
+anchor_bottom = 1.0987654
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Player Final/Camera2D/HUD"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 260.0
+offset_bottom = 42.0
+
 [node name="attack_area" type="Area2D" parent="Player Final"]
 position = Vector2(3.067505, 0)
 collision_layer = 13
