@@ -51,26 +51,6 @@ position = Vector2(1055.0001, -3)
 scale = Vector2(3.141069, 3.1232116)
 shape = SubResource("RectangleShape2D_trkr1")
 
-[node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_iv12h")]
-position = Vector2(3308.9998, 616)
-scale = Vector2(0.326, 0.326)
-collision_layer = 13
-collision_mask = 3
-moveSpeed = 200.0
-jumpSpeed = -700.0
-
-[node name="Camera2D" type="Camera2D" parent="Player Final"]
-position = Vector2(-1659.6848, -1002.4684)
-scale = Vector2(3.0674846, 3.0674846)
-anchor_mode = 0
-limit_bottom = 965
-limit_smoothed = true
-
-[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_d8nwa")
-
 [node name="Path2D2" type="Path2D" parent="."]
 position = Vector2(846.6032, 319)
 scale = Vector2(2.7366858, 2.808)
@@ -88,8 +68,23 @@ rotates = false
 rotation = -0.59608513
 skew = -0.02301693
 
-[node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") instance=ExtResource("8_68l7t")]
-position = Vector2(3745, 779)
+[node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") groups=["boss"] instance=ExtResource("8_68l7t")]
+position = Vector2(3760.0002, 779)
 player_ref = NodePath("../Player Final")
+
+[node name="Player Final" parent="." instance=ExtResource("4_iv12h")]
+position = Vector2(3329, 580)
+scale = Vector2(0.4, 0.4)
+health = 10
+
+[node name="Camera2D" type="Camera2D" parent="Player Final"]
+scale = Vector2(2, 2.0217721)
+limit_bottom = 965
+limit_smoothed = true
+
+[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_d8nwa")
 
 [connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]

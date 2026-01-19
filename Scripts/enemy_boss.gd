@@ -36,7 +36,7 @@ var is_attacking := false
 var is_taking_damage := false
 var can_attack := true
 var attack_cooldown_time := 1.0
-
+var damage_time = 0
 
 #ATACKING
 var _max_times_shouting = 1
@@ -45,8 +45,19 @@ var current_attack := StateMachine.ATTACK
 var debug = true
 var _attack_counting = 0.0
 
+var is_flashing = false
+var damage_material : ShaderMaterial
+var original_material
+
+
 func _ready() -> void:
 	machine_state = animation_tree.get("parameters/playback")
+	damage_material = ShaderMaterial.new()
+	damage_material.shader = preload("res://Prefabs/enemy_Boss.gdshader")
+	original_material = $sprite.material
+	damage_material.set_shader_parameter("flash_intensity", 0.0)
+	damage_material.set_shader_parameter("flash_color", Vector3(1.0, 0.0, 0.0))  # Vermelho
+	damage_material.set_shader_parameter("original_texture", $sprite.texture)
 
 func get_direction_to_player(ref:Vector2 = global_position) -> Vector2:
 	if not player_ref or not is_instance_valid(player_ref):
@@ -67,7 +78,6 @@ func shoot(angle := 0) -> void:
 
 func _die():
 	is_attacking = false
-	death = true
 	state = StateMachine.DEATH
 	
 	$area_dano/CollisionShape2D.disabled = true
@@ -82,13 +92,13 @@ func do_attack(atk_count):
 	
 
 func _process(delta: float) -> void:
-	
 	if do_attack(_attack_counting):
 		state = StateMachine.GET_READY
 		#Escolher qual aleatoriamente
 		_attack_counting = 0
 	#print(_attack_counting)
-	if health < 0 :
+	print(health)
+	if health <= 0 :
 		_die()
 		# INIT, ATTACK, ATTACK2, DAMAGE, DEATH
 	
@@ -152,16 +162,44 @@ func _process(delta: float) -> void:
 				await animation_tree.animation_finished
 				queue_free()
 
+func take_damage_flash():
+	if is_flashing: 
+		return
+	
+	is_flashing = true
+	$sprite.material = damage_material
+	# Animação do shader
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	
+	# Pisca forte rapidamente
+	tween.tween_property(damage_material, "shader_parameter/flash_intensity", 1.0, 0.1)
+	
+	# Volta ao normal mais devagar
+	tween.tween_property(damage_material, "shader_parameter/flash_intensity", 0.0, 0.4)
+	
+	# Restaura material original
+	tween.tween_callback(func():
+		#$sprite.material = original_material
+		is_flashing = false
+	)
 
 func ApplyDamage(damage_amount: int = 0) -> void:
 	if state == StateMachine.DEATH  and is_taking_damage:
 		return
 	
-	health -= damage_amount
 	is_taking_damage = true
+	
+	take_damage_flash()
+
+	
+	
+	
+	health -= damage_amount
 	is_attacking = false
 	
-	machine_state.travel("takeDamege")
+	#machine_state.travel("takeDamege")
 	print(self.name + " tomou dano, vida restante: ", health)
 
 

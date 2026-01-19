@@ -133,6 +133,16 @@ func _on_animation_tree_animation_finished(anim_name: StringName) -> void:
 
 func _on_attack_area_body_entered(body: Node2D) -> void:
 	print(body.get_groups())
-	if body.is_in_group("Enemies"):
-		if body.death != true:
+	if body.death != true:
+		if body.is_in_group("Enemies"):
 			var _goblin = body.ApplyDamage(damage_power)
+
+			
+			#var _boss = body.ApplyDamage(damage_power)
+	
+
+
+func _on_attack_area_area_entered(area: Area2D) -> void:
+	print(area.get_groups())
+	if area.is_in_group("dano"):
+		var _boss = area.ApplyDamage(damage_power) # N~

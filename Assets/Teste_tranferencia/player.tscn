@@ -740,4 +740,5 @@ disabled = true
 debug_color = Color(0.9304916, 0.22527155, 0.3606144, 0.41960785)
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="area_entered" from="attack_area" to="." method="_on_attack_area_area_entered"]
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]

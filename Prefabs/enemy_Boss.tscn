@@ -1,10 +1,16 @@
-[gd_scene load_steps=45 format=3 uid="uid://dkfoffaoavxd8"]
+[gd_scene load_steps=47 format=3 uid="uid://dkfoffaoavxd8"]
 
 [ext_resource type="Script" uid="uid://blu7irquu41ik" path="res://Scripts/enemy_boss.gd" id="1_8yp4k"]
 [ext_resource type="Texture2D" uid="uid://c4xmwxct4nrvh" path="res://Assets/Sprites/enemys/robot/3-Robot-Idle.png" id="2_eknms"]
+[ext_resource type="Shader" uid="uid://cb7jsl5coqac1" path="res://Prefabs/enemy_Boss.gdshader" id="2_mvapa"]
 [ext_resource type="Texture2D" uid="uid://b4bwnu5wwg6kv" path="res://icon.svg" id="3_mvapa"]
 [ext_resource type="Texture2D" uid="uid://bal2gljvrybgh" path="res://Assets/Sprites/enemys/robot/3-Robot-Atack.png" id="4_350rk"]
 [ext_resource type="Texture2D" uid="uid://cowj8t7k0cxup" path="res://Assets/Sprites/enemys/robot/3-Robot-Walk.png" id="5_sombu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_350rk"]
+shader = ExtResource("2_mvapa")
+shader_parameter/flash_intensity = 0.0
+shader_parameter/flash_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lgw76"]
 radius = 7.3479733
@@ -461,58 +467,10 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("sprite:frame")
+tracks/0/path = NodePath("sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.33333334),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sprite:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_eknms")]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("sprite:hframes")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sprite:offset")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.283, 7.879)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("sprite:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.13333334, 0.4859066),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
@@ -601,7 +559,6 @@ loop_mode = 0
 [sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_80imi"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_osttl"]
-graph_offset = Vector2(-49.611664, 0.85791016)
 nodes/output/position = Vector2(780, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_n7q57")
 nodes/Animation/position = Vector2(320, 120)
@@ -682,18 +639,19 @@ states/death/position = Vector2(987.4298, 190.3786)
 states/takeDamege/node = SubResource("AnimationNodeAnimation_80imi")
 states/takeDamege/position = Vector2(932.4298, 376.59344)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_t4g6b"), "Idle", "attack2", SubResource("AnimationNodeStateMachineTransition_n7q57"), "attack2", "Idle", SubResource("AnimationNodeStateMachineTransition_80imi"), "Idle", "attack", SubResource("AnimationNodeStateMachineTransition_kuc4i"), "attack", "Idle", SubResource("AnimationNodeStateMachineTransition_ggq53"), "attack", "takeDamege", SubResource("AnimationNodeStateMachineTransition_xk43f"), "takeDamege", "Idle", SubResource("AnimationNodeStateMachineTransition_4r6ty"), "attack2", "takeDamege", SubResource("AnimationNodeStateMachineTransition_x0wuq"), "Idle", "takeDamege", SubResource("AnimationNodeStateMachineTransition_1ox27"), "takeDamege", "attack2", SubResource("AnimationNodeStateMachineTransition_fax4q"), "takeDamege", "death", SubResource("AnimationNodeStateMachineTransition_mxgsx"), "death", "End", SubResource("AnimationNodeStateMachineTransition_hwma7"), "awaiting", "Idle", SubResource("AnimationNodeStateMachineTransition_mvapa"), "attack", "awaiting", SubResource("AnimationNodeStateMachineTransition_350rk"), "attack2", "awaiting", SubResource("AnimationNodeStateMachineTransition_sombu"), "Start", "INIT", SubResource("AnimationNodeStateMachineTransition_wpsja"), "INIT", "Idle", SubResource("AnimationNodeStateMachineTransition_ug1v1"), "Idle", "awaiting", SubResource("AnimationNodeStateMachineTransition_8yp4k")]
-graph_offset = Vector2(333.42978, 14.378601)
+graph_offset = Vector2(358.42978, 170.3786)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8yp4k"]
 radius = 3.5853014
 
-[node name="Enemy_boss" type="CharacterBody2D" node_paths=PackedStringArray("bullet_point") groups=["Enemy"]]
+[node name="Enemy_boss" type="CharacterBody2D" node_paths=PackedStringArray("bullet_point")]
 scale = Vector2(11.84, 11.84)
 script = ExtResource("1_8yp4k")
 bullet_point = NodePath("Marker2D")
 
 [node name="sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_350rk")
 position = Vector2(0, -11.281)
 texture = ExtResource("2_eknms")
 offset = Vector2(1.283, 7.879)
@@ -753,10 +711,13 @@ gizmo_extents = 3.0
 [node name="await_time" type="Timer" parent="." groups=["boss"]]
 one_shot = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="." groups=["boss"]]
-position = Vector2(-2.2804055, -9.037162)
+[node name="Area2D" type="Area2D" parent="." groups=["dano"]]
+position = Vector2(-4.0540543, -9.206081)
+
+[node name="w" type="CollisionShape2D" parent="Area2D" groups=["boss"]]
 shape = SubResource("CircleShape2D_8yp4k")
 debug_color = Color(0.96244043, 1.4439225e-06, 0.5073603, 0.41960785)
 
 [connection signal="body_entered" from="area_dano" to="." method="_on_area_2d_body_entered"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="animation_started" from="AnimationTree" to="." method="_on_animation_tree_animation_started"]
