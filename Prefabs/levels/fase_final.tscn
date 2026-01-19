@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c4tehcihbn1oe"]
+[gd_scene load_steps=12 format=3 uid="uid://c4tehcihbn1oe"]
 
+[ext_resource type="Script" uid="uid://4xjaiwh2i63k" path="res://Prefabs/levels/fase_final.gd" id="1_2aiq6"]
 [ext_resource type="PackedScene" uid="uid://d4g6fk3vqf7bu" path="res://Prefabs/levels/fase_final_tilemap.tscn" id="1_domtr"]
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/levels/background.tscn" id="2_8ua63"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="3_2de7j"]
@@ -18,6 +19,7 @@ _data = {
 point_count = 3
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_2aiq6")
 metadata/_edit_vertical_guides_ = [4417.0]
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -70,6 +72,7 @@ skew = -0.02301693
 
 [node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") groups=["boss"] instance=ExtResource("8_68l7t")]
 position = Vector2(3760.0002, 779)
+health = 10
 player_ref = NodePath("../Player Final")
 
 [node name="Player Final" parent="." instance=ExtResource("4_iv12h")]
@@ -88,3 +91,4 @@ process_physics_priority = 300
 script = ExtResource("5_d8nwa")
 
 [connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]
+[connection signal="on_death" from="Enemy_boss" to="." method="_on_enemy_boss_on_death"]

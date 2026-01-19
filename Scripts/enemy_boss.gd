@@ -8,6 +8,7 @@ ATTACK2 -> Dar um soco Grandao
 DAMAGE -> Levar dano
 DEATH -> Animaçao de morte
 """
+@export var health := 3
 @export var SPEED := 90.0
 @export var DIST_FOLLOW := 300.0
 @export var DIST_ATTACK := 80.0
@@ -25,9 +26,10 @@ DEATH -> Animaçao de morte
 
 const BULLET_SCENE: PackedScene = preload("res://Prefabs/objects/laser.tscn")
 
+signal on_death
+
 
 var att_power := 10
-var health := 3
 var animation := ''
 var death := false
 var state := StateMachine.IDLE
@@ -160,6 +162,7 @@ func _process(delta: float) -> void:
 				death = true
 				machine_state.travel("death")
 				await animation_tree.animation_finished
+				emit_signal("on_death")
 				queue_free()
 
 func take_damage_flash():
