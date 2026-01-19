@@ -1,0 +1,107 @@
+[gd_scene load_steps=15 format=3 uid="uid://b28yyeow7hgu1"]
+
+[ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/levels/background.tscn" id="1_20048"]
+[ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_h7xhi"]
+[ext_resource type="Script" uid="uid://pkfxsbeai2lg" path="res://Prefabs/caminho.gd" id="5_2f2xo"]
+[ext_resource type="PackedScene" uid="uid://bk7borty1x5ya" path="res://Prefabs/levels/tilemap.tscn" id="5_6v0wk"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_fso3h"]
+[ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="5_j2fh8"]
+[ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="5_trkr1"]
+[ext_resource type="PackedScene" uid="uid://b7sn54tnh7gle" path="res://Prefabs/next_level_portal.tscn" id="8_ulofw"]
+[ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="9_68d1h"]
+[ext_resource type="Texture2D" uid="uid://b4bwnu5wwg6kv" path="res://icon.svg" id="10_l2r2m"]
+[ext_resource type="Script" uid="uid://4mle1as4dnba" path="res://Prefabs/item_base.gd" id="11_jsw86"]
+[ext_resource type="AudioStream" uid="uid://804dghn1u4uk" path="res://Assets/sounds/Item Pickup.mp3" id="12_ssddj"]
+
+[sub_resource type="Curve2D" id="Curve2D_trkr1"]
+_data = {
+"points": PackedVector2Array(1.2381, -45.730255, -1.2381, 45.730255, -101.43773, -29.558403, -1.6049706, 44.840668, 1.6049706, -44.840668, 0, 0, 59.610195, 1.3020115, -59.610195, -1.3020115, -46.99231, -59.82906, 0, 0, 0, 0, -102.16853, -29.558403, 0, 0, 0, 0, -101.80313, -29.558403)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qr7x8"]
+size = Vector2(53, 48)
+
+[node name="Game" type="Node2D"]
+metadata/_edit_vertical_guides_ = [4417.0]
+
+[node name="fase1_tilemap" parent="." instance=ExtResource("5_6v0wk")]
+
+[node name="Background_paralax" parent="." instance=ExtResource("1_20048")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" groups=["Enemies"] instance=ExtResource("5_trkr1")]
+position = Vector2(1161, 438.00003)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="Enemy2" parent="Enemies" groups=["Enemies"] instance=ExtResource("5_trkr1")]
+position = Vector2(1710, 552)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+
+[node name="Path2D2" type="Path2D" parent="Enemies"]
+position = Vector2(838, 227)
+scale = Vector2(2.7366858, 2.808)
+curve = SubResource("Curve2D_trkr1")
+script = ExtResource("5_2f2xo")
+speed = 40.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Path2D2"]
+position = Vector2(-6.454632, 15.132184)
+rotation = 0.63869625
+progress = 121.70896
+rotates = false
+
+[node name="fly_enemy" parent="Enemies/Path2D2/PathFollow2D" node_paths=PackedStringArray("player") groups=["Enemies"] instance=ExtResource("5_j2fh8")]
+rotation = -0.59608513
+skew = -0.02301693
+player = NodePath("../../../../Player Final")
+
+[node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_h7xhi")]
+position = Vector2(115, 329)
+scale = Vector2(0.326, 0.326)
+collision_layer = 13
+collision_mask = 3
+moveSpeed = 200.0
+jumpSpeed = -700.0
+
+[node name="Camera2D" type="Camera2D" parent="Player Final"]
+position = Vector2(-1659.6848, -1002.4684)
+scale = Vector2(3.0674846, 3.0674846)
+anchor_mode = 0
+limit_smoothed = true
+
+[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_fso3h")
+
+[node name="next_level_portal" parent="." instance=ExtResource("8_ulofw")]
+position = Vector2(4344.1714, 847.69586)
+next_level = "res://Prefabs/levels/fase_final.tscn"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_68d1h")
+volume_db = -8.503
+autoplay = true
+
+[node name="item_base" type="Sprite2D" parent="."]
+position = Vector2(383.99997, 412.99997)
+scale = Vector2(0.44233227, 0.44233227)
+texture = ExtResource("10_l2r2m")
+script = ExtResource("11_jsw86")
+
+[node name="Area2D" type="Area2D" parent="item_base"]
+scale = Vector2(2.260744, 2.260744)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item_base/Area2D"]
+shape = SubResource("RectangleShape2D_qr7x8")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="item_base"]
+stream = ExtResource("12_ssddj")
+
+[connection signal="damege" from="Enemies/Path2D2/PathFollow2D/fly_enemy" to="Enemies/Path2D2" method="_on_fly_enemy_damege"]
+[connection signal="body_entered" from="item_base/Area2D" to="item_base" method="_on_area_2d_body_entered"]

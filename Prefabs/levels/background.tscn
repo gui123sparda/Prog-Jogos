@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://brxwrrwal0p6b"]
+
+[ext_resource type="Texture2D" uid="uid://c0whmc8paqgj3" path="res://FreeCuteTileset/BG3.png" id="1_n0flw"]
+[ext_resource type="Texture2D" uid="uid://k08pwbg2br5v" path="res://FreeCuteTileset/BG2.png" id="2_y80ol"]
+[ext_resource type="Texture2D" uid="uid://dsnfv6421y5gy" path="res://FreeCuteTileset/BG1.png" id="3_as8u8"]
+
+[node name="Background" type="Node"]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+visible = false
+z_index = -1
+scroll_scale = Vector2(0.9, 1)
+scroll_offset = Vector2(-1, 191)
+repeat_size = Vector2(640, 0)
+repeat_times = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D"]
+visible = false
+z_index = -1
+scale = Vector2(2, 2)
+texture = ExtResource("1_n0flw")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+visible = false
+z_index = -2
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(0, 191)
+repeat_size = Vector2(640, 0)
+autoscroll = Vector2(-100, 0)
+repeat_times = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2"]
+z_index = -2
+scale = Vector2(2, 2)
+texture = ExtResource("2_y80ol")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+visible = false
+z_index = -2
+scroll_scale = Vector2(0.1, 1)
+scroll_offset = Vector2(0, 191)
+repeat_size = Vector2(960, 0)
+autoscroll = Vector2(-20, 0)
+repeat_times = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3"]
+z_index = -3
+position = Vector2(1, -100.00001)
+scale = Vector2(3, 3)
+texture = ExtResource("3_as8u8")

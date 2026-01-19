@@ -10,8 +10,8 @@ func _process(delta: float) -> void:
 		$PathFollow2D.progress += delta * speed
 
 
-func _on_fly_enemy_damege() -> void:
+func _on_fly_enemy_damege(time) -> void:
 	running = false
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(time).timeout
 	running= true
 	

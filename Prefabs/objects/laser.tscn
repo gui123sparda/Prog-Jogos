@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1to41utoda0l"]
+
+[ext_resource type="Texture2D" uid="uid://b4bwnu5wwg6kv" path="res://icon.svg" id="1_bdap5"]
+[ext_resource type="Script" uid="uid://rbdy812valui" path="res://Prefabs/objects/laser.gd" id="1_ek63l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek63l"]
+size = Vector2(26, 20)
+
+[node name="laser" type="Node2D"]
+scale = Vector2(0.67526454, 0.6892773)
+script = ExtResource("1_ek63l")
+velocity = 15
+
+[node name="Icon" type="Sprite2D" parent="."]
+modulate = Color(8.414302, 0, 0, 1)
+scale = Vector2(0.21208088, 0.19972748)
+texture = ExtResource("1_bdap5")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ek63l")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

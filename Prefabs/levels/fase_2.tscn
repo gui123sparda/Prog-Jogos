@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp4j6drvwayck"]
+
+[ext_resource type="PackedScene" uid="uid://gme0604i5df2" path="res://Prefabs/levels/fase_2_tilemap.tscn" id="1_dhu5t"]
+[ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="3_cdkps"]
+[ext_resource type="PackedScene" uid="uid://b7sn54tnh7gle" path="res://Prefabs/next_level_portal.tscn" id="4_5saw0"]
+[ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_sxkkt"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_ismay"]
+
+[node name="Fase2" type="Node2D"]
+
+[node name="Fase2" parent="." instance=ExtResource("1_dhu5t")]
+position = Vector2(2, 0)
+
+[node name="Enemy" parent="." groups=["Enemies"] instance=ExtResource("3_cdkps")]
+position = Vector2(1095, 529)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="next_level_portal" parent="." instance=ExtResource("4_5saw0")]
+position = Vector2(4040, 625)
+region_rect = Rect2(65, 0, 29, 32)
+next_level = "res://Prefabs/levels/game_fase1.tscn"
+
+[node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_sxkkt")]
+position = Vector2(115, 329)
+scale = Vector2(0.326, 0.326)
+collision_layer = 13
+collision_mask = 3
+moveSpeed = 200.0
+jumpSpeed = -700.0
+
+[node name="Camera2D" type="Camera2D" parent="Player Final"]
+position = Vector2(-1659.6848, -1002.4684)
+scale = Vector2(3.0674846, 3.0674846)
+anchor_mode = 0
+limit_smoothed = true
+
+[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_ismay")

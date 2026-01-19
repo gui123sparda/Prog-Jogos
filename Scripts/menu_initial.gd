@@ -13,8 +13,7 @@ func _ready() -> void:
 
 
 func _on_init_btn_pressed() -> void:
-	print("entoru")
-	print(get_tree().change_scene_to_file("res://Prefabs/levels/game_fase1.tscn"))
+	print(get_tree().change_scene_to_file("res://Prefabs/levels/fase_2.tscn"))
 
 
 func _on_creditos_btn_pressed() -> void:
