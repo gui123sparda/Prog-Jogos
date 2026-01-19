@@ -104,8 +104,8 @@ func _process(delta: float) -> void:
 		_die()
 		# INIT, ATTACK, ATTACK2, DAMAGE, DEATH
 	
-	if Input.is_action_just_pressed("ui_down"):
-		ApplyDamage(1)
+	#if Input.is_action_just_pressed("ui_down"):
+		#ApplyDamage(1)
 	
 	match state:
 		StateMachine.INIT:

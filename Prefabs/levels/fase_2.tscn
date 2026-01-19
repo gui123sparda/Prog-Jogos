@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp4j6drvwayck"]
+[gd_scene load_steps=7 format=3 uid="uid://dp4j6drvwayck"]
 
 [ext_resource type="PackedScene" uid="uid://gme0604i5df2" path="res://Prefabs/levels/fase_2_tilemap.tscn" id="1_dhu5t"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="3_cdkps"]
 [ext_resource type="PackedScene" uid="uid://b7sn54tnh7gle" path="res://Prefabs/next_level_portal.tscn" id="4_5saw0"]
 [ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_sxkkt"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_ismay"]
+[ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="6_ismay"]
 
 [node name="Fase2" type="Node2D"]
 
@@ -40,3 +41,8 @@ limit_smoothed = true
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_ismay")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ismay")
+volume_db = -8.503
+autoplay = true

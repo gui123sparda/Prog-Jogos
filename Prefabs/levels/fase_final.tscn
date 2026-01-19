@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4tehcihbn1oe"]
+[gd_scene load_steps=13 format=3 uid="uid://c4tehcihbn1oe"]
 
 [ext_resource type="Script" uid="uid://4xjaiwh2i63k" path="res://Prefabs/levels/fase_final.gd" id="1_2aiq6"]
 [ext_resource type="PackedScene" uid="uid://d4g6fk3vqf7bu" path="res://Prefabs/levels/fase_final_tilemap.tscn" id="1_domtr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://pkfxsbeai2lg" path="res://Prefabs/caminho.gd" id="6_080t6"]
 [ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="7_4aw1d"]
 [ext_resource type="PackedScene" uid="uid://dkfoffaoavxd8" path="res://Prefabs/enemy_Boss.tscn" id="8_68l7t"]
+[ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="10_2uav6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
 
@@ -89,6 +90,11 @@ limit_smoothed = true
 process_priority = 300
 process_physics_priority = 300
 script = ExtResource("5_d8nwa")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_2uav6")
+volume_db = -8.503
+autoplay = true
 
 [connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]
 [connection signal="on_death" from="Enemy_boss" to="." method="_on_enemy_boss_on_death"]
