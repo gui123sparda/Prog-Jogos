@@ -168,12 +168,12 @@ public partial class PlayerMovement : CharacterBody2D
 		is_attacking = true;
 		attack_area.Monitoring = true;
 
-		// Desativa após 0.25s
-		GetTree().CreateTimer(1f).Timeout += () =>
-		{
-			attack_area.Monitoring = false;
-			is_attacking = false;
-		};
+        // Desativa após 0.25s
+        GetTree().CreateTimer(0.25f).Timeout += () =>
+        {
+            attack_area.Monitoring = false;
+            is_attacking = false;
+        };
 	}
 
 	public void ApplyDamage(int damage)
