@@ -1,0 +1,144 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1pk3vkklycv0"]
+
+[ext_resource type="Script" uid="uid://cf7ex20h3yx3l" path="res://Prefabs/cut_screne.gd" id="1_e5hia"]
+[ext_resource type="Texture2D" uid="uid://d0wmjlxssc77a" path="res://quadrinho jogo.png" id="1_gapv5"]
+
+[sub_resource type="Animation" id="Animation_e5hia"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gapv5"]
+resource_name = "animacao"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.2666667, 1.4, 1.9133333, 2.9766667, 3.8466666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1, 1), Vector2(1.625, 1.625), Vector2(0.785, 0.785), Vector2(0.785, 0.785), Vector2(0.56, 0.56)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.2666667, 1.4, 1.9133333, 2.9766667, 3.4866667, 3.8466666),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(947, -22), Vector2(947, -22), Vector2(15, 785), Vector2(19, 860), Vector2(909, 776), Vector2(39, 1700), Vector2(3, 1709.185)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CanvasLayer/Control:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.66),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_adkji"]
+_data = {
+&"RESET": SubResource("Animation_e5hia"),
+&"animacao": SubResource("Animation_gapv5")
+}
+
+[node name="Cutscene" type="Node2D"]
+script = ExtResource("1_e5hia")
+
+[node name="QuadrinhoJogo" type="Sprite2D" parent="."]
+position = Vector2(1047, 1476.0001)
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("1_gapv5")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+limit_left = 0
+limit_top = 0
+limit_right = 2050
+limit_bottom = 2950
+position_smoothing_enabled = true
+position_smoothing_speed = 4.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_adkji")
+}
+autoplay = "animacao"
+speed_scale = 0.7
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 817.0
+offset_top = 310.0
+offset_bottom = -165.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "Aperte ENTER 
+para continuar"

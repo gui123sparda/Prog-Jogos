@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b43e0ea8htv6i"]
+
+[ext_resource type="Script" uid="uid://pign4hnh2uu6" path="res://Prefabs/levels/camera_2d.gd" id="1_ur113"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_1qk6r"]
+
+[node name="Camera2D" type="Camera2D"]
+scale = Vector2(3.0674846, 3.0674846)
+anchor_mode = 0
+limit_bottom = 965
+limit_smoothed = true
+script = ExtResource("1_ur113")
+
+[node name="PhantomCameraHost" type="Node" parent="."]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_1qk6r")
+
+[node name="DamageOverlay" type="ColorRect" parent="."]
+offset_left = -627.55
+offset_top = -487.37
+offset_right = 2104.656
+offset_bottom = 1337.578
