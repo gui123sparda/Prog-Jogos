@@ -1,17 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4tehcihbn1oe"]
+[gd_scene load_steps=15 format=3 uid="uid://c4tehcihbn1oe"]
 
 [ext_resource type="Script" uid="uid://4xjaiwh2i63k" path="res://Prefabs/levels/fase_final.gd" id="1_2aiq6"]
 [ext_resource type="PackedScene" uid="uid://d4g6fk3vqf7bu" path="res://Prefabs/levels/fase_final_tilemap.tscn" id="1_domtr"]
 [ext_resource type="PackedScene" uid="uid://brxwrrwal0p6b" path="res://Prefabs/levels/background.tscn" id="2_8ua63"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="3_2de7j"]
 [ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_iv12h"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_d8nwa"]
 [ext_resource type="Script" uid="uid://pkfxsbeai2lg" path="res://Prefabs/caminho.gd" id="6_080t6"]
 [ext_resource type="PackedScene" uid="uid://q15j426yec4c" path="res://Prefabs/enemy_flying.tscn" id="7_4aw1d"]
 [ext_resource type="PackedScene" uid="uid://dkfoffaoavxd8" path="res://Prefabs/enemy_Boss.tscn" id="8_68l7t"]
 [ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="10_2uav6"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
+[ext_resource type="PackedScene" uid="uid://b43e0ea8htv6i" path="res://Prefabs/objects/camera_2d.tscn" id="10_i32fx"]
 
 [sub_resource type="Curve2D" id="Curve2D_trkr1"]
 _data = {
@@ -19,9 +17,17 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trkr1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2uav6"]
+size = Vector2(166, 467.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i32fx"]
+size = Vector2(44, 462)
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_2aiq6")
-metadata/_edit_vertical_guides_ = [4417.0]
+metadata/_edit_vertical_guides_ = [3942.0, 2801.0]
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -36,6 +42,30 @@ position = Vector2(691, 418.00003)
 rotation = 3.1415927
 scale = Vector2(2.807778, -2.807778)
 SPEED = 250.0
+
+[node name="Enemy2" parent="Enemies" groups=["Enemies"] instance=ExtResource("3_2de7j")]
+position = Vector2(2571, 857)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="Path2D2" type="Path2D" parent="Enemies"]
+position = Vector2(846.6032, 319)
+scale = Vector2(2.7366858, 2.808)
+curve = SubResource("Curve2D_trkr1")
+script = ExtResource("6_080t6")
+speed = 40.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Enemies/Path2D2"]
+position = Vector2(59.574043, -24.113161)
+rotation = 0.63869625
+progress = 194.96231
+rotates = false
+
+[node name="fly_enemy" parent="Enemies/Path2D2/PathFollow2D" node_paths=PackedStringArray("player") groups=["Enemies"] instance=ExtResource("7_4aw1d")]
+rotation = -0.59608513
+skew = -0.02301693
+player = NodePath("../../../../Player Final")
 
 [node name="obstaculos" type="Node2D" parent="."]
 visible = false
@@ -54,23 +84,6 @@ position = Vector2(1055.0001, -3)
 scale = Vector2(3.141069, 3.1232116)
 shape = SubResource("RectangleShape2D_trkr1")
 
-[node name="Path2D2" type="Path2D" parent="."]
-position = Vector2(846.6032, 319)
-scale = Vector2(2.7366858, 2.808)
-curve = SubResource("Curve2D_trkr1")
-script = ExtResource("6_080t6")
-speed = 40.0
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2"]
-position = Vector2(-79.254776, -14.14446)
-rotation = 0.63869625
-progress = 27.335464
-rotates = false
-
-[node name="fly_enemy" parent="Path2D2/PathFollow2D" groups=["Enemies"] instance=ExtResource("7_4aw1d")]
-rotation = -0.59608513
-skew = -0.02301693
-
 [node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") groups=["boss"] instance=ExtResource("8_68l7t")]
 position = Vector2(3760.0002, 779)
 collision_layer = 3
@@ -79,24 +92,48 @@ health = 10
 player_ref = NodePath("../Player Final")
 
 [node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_iv12h")]
-position = Vector2(3329, 580)
+position = Vector2(155.00049, 357.00003)
 scale = Vector2(0.4, 0.4)
-health = 10
 
-[node name="Camera2D" type="Camera2D" parent="Player Final"]
-scale = Vector2(2, 2.0217721)
-limit_bottom = 965
-limit_smoothed = true
-
-[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_d8nwa")
+[node name="Camera2D" parent="Player Final" instance=ExtResource("10_i32fx")]
+position = Vector2(-1659.6848, -1002.4684)
+limit_left = 0
+limit_top = 0
+limit_right = 4000
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_2uav6")
 volume_db = -8.503
 autoplay = true
 
-[connection signal="damege" from="Path2D2/PathFollow2D/fly_enemy" to="Path2D2" method="_on_fly_enemy_damege"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2902, 657.75)
+shape = SubResource("RectangleShape2D_2uav6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(2783, 716)
+disable_mode = 2
+collision_layer = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(10, 411)
+shape = SubResource("RectangleShape2D_i32fx")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="vidas_txt" type="Label" parent="CanvasLayer"]
+offset_left = 38.0
+offset_top = 23.0
+offset_right = 78.0
+offset_bottom = 46.0
+scale = Vector2(1.2740585, 1.6850691)
+
+[connection signal="damege" from="Enemies/Path2D2/PathFollow2D/fly_enemy" to="Enemies/Path2D2" method="_on_fly_enemy_damege"]
 [connection signal="on_death" from="Enemy_boss" to="." method="_on_enemy_boss_on_death"]
+[connection signal="Damage" from="Player Final" to="." method="_on_player_final_damage"]
+[connection signal="IsDeath" from="Player Final" to="." method="_on_player_final_is_death"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

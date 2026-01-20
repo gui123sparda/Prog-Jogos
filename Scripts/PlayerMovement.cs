@@ -40,6 +40,24 @@ public partial class PlayerMovement : CharacterBody2D
 	[Export]
 	public AnimationTree playerAnimator;
 	private AnimationNodeStateMachinePlayback _animStateMachine;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	[Signal]
+	public delegate void DamageEventHandler();
+	
+	[Signal]
+	public delegate void IsDeathEventHandler();
+	
+	
+	
 	public override void _Ready()
 	{
 		
@@ -50,6 +68,8 @@ public partial class PlayerMovement : CharacterBody2D
 
 		GD.Print("Player pronto");
 	}
+
+
 
 	public void GetInput()
 	{
@@ -113,11 +133,21 @@ public partial class PlayerMovement : CharacterBody2D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		
+		
+		if (is_death) {
+			_animStateMachine.Travel("death");
+		}
+		
+		
 		velocity = Velocity;
 		inputDirection = Input.GetAxis("Left", "Right");
 		//GD.Print(inputDirection);
 		//GD.Print(velocity);
+		if (!is_death) {
+			
 		GetInput();
+		}
 		if (IsOnFloor())
 		{
 			is_Jumping = false;
@@ -125,14 +155,12 @@ public partial class PlayerMovement : CharacterBody2D
 		}
 		else
 		{
-
-			
 			velocity.Y += gravity * (float)delta;
 		}
 
+		
 
-
-
+if (!is_death) {
 		if (Input.IsActionPressed("Run"))
 		{
 			is_Running = true;
@@ -154,7 +182,9 @@ public partial class PlayerMovement : CharacterBody2D
 			velocity.Y = jumpSpeed;
 		}
 
-
+} else {
+	velocity.X = inputDirection;
+}
 
 
 
@@ -185,10 +215,16 @@ public partial class PlayerMovement : CharacterBody2D
 
 		GD.Print("Player tomou dano. Vida: ", health);
 
-		
+		EmitSignal(SignalName.Damage);
 
 		// Pequeno knockback
+		if (IsOnFloor()) {
+		Velocity = new Vector2(-3000 * Scale.X, -1500);
+			
+		} else {
 		Velocity = new Vector2(-300 * Scale.X, -150);
+			
+		}
 
 		GetTree().CreateTimer(0.3f).Timeout += () =>
 		{
@@ -214,6 +250,9 @@ public partial class PlayerMovement : CharacterBody2D
 	public void OnAnimationPlayerAnimationFinished(String anim_name){
 		if (anim_name == "Attack") {
 			is_attacking = false;
+		} else if (anim_name == "death") {
+			EmitSignal(SignalName.IsDeath);
+			QueueFree();
 		}
 	}
 	

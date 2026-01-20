@@ -1,13 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dp4j6drvwayck"]
+[gd_scene load_steps=8 format=3 uid="uid://dp4j6drvwayck"]
 
 [ext_resource type="PackedScene" uid="uid://gme0604i5df2" path="res://Prefabs/levels/fase_2_tilemap.tscn" id="1_dhu5t"]
+[ext_resource type="Script" uid="uid://dm0jvt4o0gvhw" path="res://Prefabs/levels/game_fase_1.gd" id="1_dy6ef"]
 [ext_resource type="PackedScene" uid="uid://cw54xulhcegc4" path="res://Prefabs/enemy.tscn" id="3_cdkps"]
 [ext_resource type="PackedScene" uid="uid://b7sn54tnh7gle" path="res://Prefabs/next_level_portal.tscn" id="4_5saw0"]
 [ext_resource type="PackedScene" uid="uid://dja0t6rqc7xpg" path="res://Prefabs/player_final.tscn" id="4_sxkkt"]
-[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_ismay"]
+[ext_resource type="PackedScene" uid="uid://b43e0ea8htv6i" path="res://Prefabs/objects/camera_2d.tscn" id="5_ismay"]
 [ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="6_ismay"]
 
 [node name="Fase2" type="Node2D"]
+script = ExtResource("1_dy6ef")
+metadata/_edit_vertical_guides_ = [4292.0]
 
 [node name="Fase2" parent="." instance=ExtResource("1_dhu5t")]
 position = Vector2(2, 0)
@@ -24,25 +27,53 @@ region_rect = Rect2(65, 0, 29, 32)
 next_level = "res://Prefabs/levels/game_fase1.tscn"
 
 [node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_sxkkt")]
-position = Vector2(115, 329)
+position = Vector2(660, 205)
 scale = Vector2(0.326, 0.326)
 collision_layer = 13
-collision_mask = 3
-moveSpeed = 200.0
-jumpSpeed = -700.0
 
-[node name="Camera2D" type="Camera2D" parent="Player Final"]
+[node name="Camera2D" parent="Player Final" instance=ExtResource("5_ismay")]
 position = Vector2(-1659.6848, -1002.4684)
-scale = Vector2(3.0674846, 3.0674846)
-anchor_mode = 0
-limit_smoothed = true
-
-[node name="PhantomCameraHost" type="Node" parent="Player Final/Camera2D"]
-process_priority = 300
-process_physics_priority = 300
-script = ExtResource("5_ismay")
+limit_left = 290
+limit_top = 0
+limit_right = 4300
+limit_bottom = 1000
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ismay")
 volume_db = -8.503
 autoplay = true
+
+[node name="w" parent="." groups=["Enemies"] instance=ExtResource("3_cdkps")]
+position = Vector2(2893, 109.00003)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="w2" parent="." groups=["Enemies"] instance=ExtResource("3_cdkps")]
+position = Vector2(3579.0002, 694)
+rotation = 3.1415927
+scale = Vector2(2.807778, -2.807778)
+SPEED = 250.0
+
+[node name="Label" type="Label" parent="."]
+offset_left = 329.0
+offset_top = 47.0
+offset_right = 526.0
+offset_bottom = 148.0
+scale = Vector2(1.4814181, 1.293304)
+text = "Direcionais -> Movimenta
+Z -> Atacar/Reflete
+Espaço/X -> Pula
+Shift -> Corre"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="vidas_txt" type="Label" parent="CanvasLayer"]
+offset_left = 38.0
+offset_top = 23.0
+offset_right = 78.0
+offset_bottom = 46.0
+scale = Vector2(1.2740585, 1.6850691)
+
+[connection signal="Damage" from="Player Final" to="." method="_on_player_final_damage"]
+[connection signal="IsDeath" from="Player Final" to="." method="_on_player_final_is_death"]

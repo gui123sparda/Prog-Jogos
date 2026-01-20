@@ -32,7 +32,7 @@ signal on_death
 var att_power := 10
 var animation := ''
 var death := false
-var state := StateMachine.IDLE
+var state := StateMachine.INIT
 var machine_state
 var is_attacking := false
 var is_taking_damage := false
