@@ -6,8 +6,9 @@ var running := true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if running:
-		$PathFollow2D.progress += delta * speed
+	pass
+	#if running:
+		#$PathFollow2D.progress += delta * speed
 
 
 func _on_fly_enemy_damege(time) -> void:

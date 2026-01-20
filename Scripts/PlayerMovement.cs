@@ -47,9 +47,6 @@ public partial class PlayerMovement : CharacterBody2D
 		playerAnimator = GetNode<AnimationTree>("AnimationTree");
 		_animStateMachine = (AnimationNodeStateMachinePlayback)playerAnimator.Get("parameters/playback");
 
-		attack_area.Monitoring = false;
-		attack_area.Monitorable = true;
-		attack_area.BodyEntered += OnAttackAreaBodyEntered;
 
 		GD.Print("Player pronto");
 	}
@@ -62,7 +59,7 @@ public partial class PlayerMovement : CharacterBody2D
 			//_animStateMachine.Travel("Walk");
 
 			playerTransform.Scale = new Vector2(-1, 1);
-
+			attack_area.Scale =  new Vector2(-1, 1);
 			playerAnimator.Set("parameters/conditions/is_run", false);
 			playerAnimator.Set("parameters/conditions/is_walk", true);
 			playerAnimator.Set("parameters/conditions/idle", false);
@@ -71,6 +68,7 @@ public partial class PlayerMovement : CharacterBody2D
 		else if (inputDirection > 0 && is_Running == true )
 		{
 			playerTransform.Scale = new Vector2(-1, 1);
+			attack_area.Scale =  new Vector2(-1, 1);
 
 			playerAnimator.Set("parameters/conditions/is_run", true);
 			playerAnimator.Set("parameters/conditions/is_walk", false);
@@ -82,6 +80,8 @@ public partial class PlayerMovement : CharacterBody2D
 			//_animStateMachine.Travel("Walk");
 
 			playerTransform.Scale = new Vector2(1, 1);
+			attack_area.Scale =  new Vector2(1, 1);
+
 
 			playerAnimator.Set("parameters/conditions/is_run", false);
 			playerAnimator.Set("parameters/conditions/is_walk", true);
@@ -91,6 +91,8 @@ public partial class PlayerMovement : CharacterBody2D
 		else if (inputDirection < 0 && is_Running == true )
 		{
 			playerTransform.Scale = new Vector2(1, 1);
+			attack_area.Scale =  new Vector2(1, 1);
+
 
 			playerAnimator.Set("parameters/conditions/is_run", true);
 			playerAnimator.Set("parameters/conditions/is_walk", false);
@@ -139,7 +141,7 @@ public partial class PlayerMovement : CharacterBody2D
 		{
 			is_Running = false;
 		}
-		if (Input.IsActionJustPressed("Attack"))
+		if (Input.IsActionJustPressed("Attack") && !is_attacking)
 		{
 			Attack();
 			_animStateMachine.Travel("Attack");
@@ -165,15 +167,12 @@ public partial class PlayerMovement : CharacterBody2D
 	{
 		attack_sound.Play();
 		 GD.Print("ATAQUE!");
-		is_attacking = true;
-		attack_area.Monitoring = true;
-
-        // Desativa após 0.25s
-        GetTree().CreateTimer(0.25f).Timeout += () =>
-        {
-            attack_area.Monitoring = false;
-            is_attacking = false;
-        };
+		//// Desativa após 0.25s
+		//GetTree().CreateTimer(0.25f).Timeout += () =>
+		//{
+			//attack_area.Monitoring = false;
+			//is_attacking = false;
+		//};
 	}
 
 	public void ApplyDamage(int damage)
@@ -202,15 +201,29 @@ public partial class PlayerMovement : CharacterBody2D
 	// ===============================
 	// HITBOX DO ATAQUE
 	// ===============================
-	private void OnAttackAreaBodyEntered(Node2D body)
+	public void OnAttackAreaBodyEntered(Node2D body)
 	{
-		GD.Print("COLIDIU COM: ", body.Name);
 
 		if (body.IsInGroup("Enemies"))
 		{
-			GD.Print("DANO APLICADO");
+			//GD.Print("COLIDIU COM: ", body.Name);
 			body.Call("ApplyDamage", damage_power);
 		}
+	}
+	
+	public void OnAnimationPlayerAnimationFinished(String anim_name){
+		if (anim_name == "Attack") {
+			is_attacking = false;
+		}
+	}
+	
+	public void OnAttackColision(Area2D area) {
+		Node boss = area.GetParent();
+		GD.Print("COLIDIU COM: ", boss);
+		if (boss.IsInGroup("boss")) {
+			boss.Call("ApplyDamage", damage_power);
+		}
+		
 	}
 
 }

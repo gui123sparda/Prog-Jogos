@@ -273,6 +273,7 @@ graph_offset = Vector2(279.3529, 24.378593)
 
 [node name="Enemy_base" type="CharacterBody2D" groups=["Enemy"]]
 scale = Vector2(-1, 1)
+collision_layer = 3
 script = ExtResource("1_3ixh4")
 
 [node name="sprite" type="Sprite2D" parent="."]
@@ -286,7 +287,7 @@ hframes = 10
 shape = SubResource("CapsuleShape2D_lgw76")
 
 [node name="area_dano" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 2
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="area_dano"]

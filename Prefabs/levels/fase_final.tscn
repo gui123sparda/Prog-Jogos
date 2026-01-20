@@ -73,10 +73,12 @@ skew = -0.02301693
 
 [node name="Enemy_boss" parent="." node_paths=PackedStringArray("player_ref") groups=["boss"] instance=ExtResource("8_68l7t")]
 position = Vector2(3760.0002, 779)
+collision_layer = 3
+collision_mask = 7
 health = 10
 player_ref = NodePath("../Player Final")
 
-[node name="Player Final" parent="." instance=ExtResource("4_iv12h")]
+[node name="Player Final" parent="." groups=["player"] instance=ExtResource("4_iv12h")]
 position = Vector2(3329, 580)
 scale = Vector2(0.4, 0.4)
 health = 10

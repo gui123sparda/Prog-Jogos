@@ -99,7 +99,6 @@ func _process(delta: float) -> void:
 		#Escolher qual aleatoriamente
 		_attack_counting = 0
 	#print(_attack_counting)
-	print(health)
 	if health <= 0 :
 		_die()
 		# INIT, ATTACK, ATTACK2, DAMAGE, DEATH
