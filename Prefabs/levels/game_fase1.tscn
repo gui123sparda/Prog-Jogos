@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b7sn54tnh7gle" path="res://Prefabs/next_level_portal.tscn" id="8_ulofw"]
 [ext_resource type="AudioStream" uid="uid://bs13wnu7oewu8" path="res://Assets/sounds/background.mp3" id="9_68d1h"]
 [ext_resource type="Texture2D" uid="uid://b4bwnu5wwg6kv" path="res://icon.svg" id="10_l2r2m"]
-[ext_resource type="Script" uid="uid://4mle1as4dnba" path="res://Prefabs/item_base.gd" id="11_jsw86"]
+[ext_resource type="Script" path="res://Prefabs/item_base.gd" id="11_jsw86"]
 [ext_resource type="AudioStream" uid="uid://804dghn1u4uk" path="res://Assets/sounds/Item Pickup.mp3" id="12_ssddj"]
 
 [sub_resource type="Curve2D" id="Curve2D_trkr1"]
