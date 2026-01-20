@@ -22,9 +22,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	var body = area.get_parent()
 	if body.is_in_group("player"):
+		print("colidou com o player")
 		direction = direction * -1
 		laser_owner = "player"
 		$Icon.modulate = Color(0.133, 0.288, 0.841, 1.0)
-	if body.is_in_group("Enemies") and laser_owner == "player":
+	if (body.is_in_group("Enemies") or body.is_in_group("boss") )and laser_owner == "player":
 		body.ApplyDamage(damage)
 		queue_free()
